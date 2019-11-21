@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:gravity="center"
+    android:background="@color/colorBGSplash"
+    android:layout_height="match_parent"
+    tools:context=".activity.SplashActivity">
+    <LinearLayout
+        android:orientation="vertical"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content">
+    <ImageView
+        android:id="@+id/im_splash"
+        android:src="@drawable/icon"
+        android:layout_width="200dp"
+        android:layout_height="200dp" />
+    <TextView
+        android:gravity="center"
+        android:id="@+id/tv_splash"
+        android:textColor="@color/colortvSplash"
+        android:textSize="50sp"
+        android:text="@string/tv_splash"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
+    </LinearLayout>
+
+</LinearLayout>

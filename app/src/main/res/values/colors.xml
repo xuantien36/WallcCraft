@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="colorPrimary">#212324</color>
+    <color name="colorPrimaryDark">#455A5A</color>
+    <color name="colorAccent">#FFC107</color>
+    <color name="colorTextheader">#F7F2F2</color>
+    <color name="colornavi">#3A3737</color>
+    <color name="colorMain">#03A9F4</color>
+    <color name="colorToolbar">#405057</color>
+    <color name="colorListText">#FCF9F9</color>
+    <color name="colortvSplash">#F8F5F5</color>
+    <color name="colorBGSplash">#181616</color>
+    <color name="colorTab">#F7F5F2</color>
+    <color name="colorTabText">#F3EDED</color>
+    <color name="colorBGTab">#F000</color>
+    <color name="colorTabSelect">#FFC107</color>
+    <color name="colorText">#FFC107</color>
+    <color name="colorBGDouble">#252323</color>
+    <color name="colordata_usage">#797373</color>
+</resources>

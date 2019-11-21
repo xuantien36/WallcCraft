@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+    <item android:id="@+id/exclusive"
+        android:title="Exclusive wallpapers"
+        android:icon="@drawable/diamonda"
+        app:showAsAction="never"/>
+    <item android:id="@+id/doubl"
+        android:icon="@drawable/ic_pause_black_24dp"
+        android:title="Double wallpapers"
+        app:showAsAction="never"/>
+    <item android:id="@+id/favorite"
+        android:title="Favorites"
+        android:icon="@drawable/ic_grade_black_24dp"
+        app:showAsAction="never"/>
+    <item android:id="@+id/history"
+        android:title="History"
+        android:icon="@drawable/ic_history_black_24dp"
+        app:showAsAction="never"/>
+    <item android:id="@+id/sucscription"
+        android:title="Subscription"
+        app:showAsAction="never"/>
+    <item android:id="@+id/setting"
+        android:icon="@drawable/ic_settings_black_24dp"
+        android:title="Settings"
+        app:showAsAction="never"/>
+    <item android:id="@+id/instagram"
+        android:title="Our Instagram"
+        app:showAsAction="never"/>
+
+</menu>

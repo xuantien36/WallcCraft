@@ -1,0 +1,26 @@
+<resources>
+    <string name="app_name">WallCraft</string>
+    <string name="navigation_drawer_open">open</string>
+    <string name="navigation_drawer_close">close</string>
+    <string name="tv_splash">Wallcraft</string>
+    <string name="menu_search">Search</string>
+    <string name="tv_new">EXCLUSIVE WALLPAPERS</string>
+    <string name="tv_raing">DOUBLE WALLPAPERS </string>
+    <string name="tv_hist"> MORE HITS ARRIVE IN </string>
+    <string name="tv_hist_clock">10:00:00 </string>
+    <string name="tv_data_usage">Data usage</string>
+    <string name="tv_download">Download walpapera only..\nData transferring will be\npaused when Wi-Fi connection\nis not available.</string>
+    <string name="tv_setting_wallpaper">Setting wallpaper</string>
+    <string name="tv_notiffication">Notifications</string>
+    <string name="tv_installer">WallpapersCraft Installer\nUse WallpapersCraft Installer\nby default</string>
+    <string name="tv_pushNotification">Push-notifications</string>
+    <string name="download">Download</string>
+    <string name="set">Set</string>
+    <string name="menu_favorite">Favorite</string>
+    <string name="menu_gallery">Gallery</string>
+    <string name="tv_dơmload">Download</string>
+    <string name="tv_set">Set</string>
+
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+</resources>
