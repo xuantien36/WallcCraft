@@ -1,26 +1,16 @@
 package com.t3h.wallccraft.activity;
-
 import androidx.annotation.NonNull;
 import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
-
-import android.Manifest;
-import android.annotation.SuppressLint;
-import android.app.Dialog;
 import android.app.DownloadManager;
 import android.app.WallpaperManager;
 import android.content.Context;
 import android.content.Intent;
-import android.content.pm.PackageManager;
-import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
-import android.graphics.drawable.BitmapDrawable;
-import android.graphics.drawable.Drawable;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
-import android.os.ParcelFileDescriptor;
+import android.os.StrictMode;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -29,16 +19,14 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ProgressBar;
 import android.widget.Toast;
-
 import com.bumptech.glide.Glide;
 import com.google.android.material.bottomsheet.BottomSheetDialog;
 import com.t3h.wallccraft.R;
 import com.t3h.wallccraft.dao.AppDatabase;
 import com.t3h.wallccraft.model.ListImage;
-
-
 import java.io.IOException;
-
+import java.io.InputStream;
+import java.net.URL;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
@@ -55,6 +43,7 @@ public class DetailActivity extends AppCompatActivity implements View.OnClickLis
     @BindView(R.id.progressBar)
     ProgressBar progressBar;
     private BottomSheetDialog bottomSheetDialog;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -162,25 +151,39 @@ public class DetailActivity extends AppCompatActivity implements View.OnClickLis
                 bottomSheetDialog.dismiss();
                 break;
             case R.id.ln_Portrait_set:
-                Intent intent = new Intent();
-                intent.setAction(Intent.ACTION_VIEW);
-                intent.setDataAndType(
-                        Uri.parse(image.getThumbUrl()),"image/*");
-                startActivity(intent);
-
+               setWallpaper();
+               bottomSheetDialog.dismiss();
                 break;
             case R.id.ln_Landscape_set:
-
-
+                setWallpaper();
+                bottomSheetDialog.dismiss();
                 break;
             case R.id.ln_Original_set:
+                 setWallpaper();
+                bottomSheetDialog.dismiss();
                 break;
 
         }
 
     }
+    public void setWallpaper() {
+        StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
+        StrictMode.setThreadPolicy(policy);
 
-        public void downloadImage() {
+        WallpaperManager wpm = WallpaperManager.getInstance(this);
+        InputStream ins = null;
+        try {
+            ins = new URL(image.getThumbUrl()).openStream();
+            wpm.setStream(ins);
+            Toast.makeText(this, "set wallpaper successs", Toast.LENGTH_SHORT).show();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+    }
+
+
+    public void downloadImage() {
         bottomSheetDialog = new BottomSheetDialog(this);
         bottomSheetDialog.setContentView(R.layout.download);
         LinearLayout layoutPortrait = bottomSheetDialog.findViewById(R.id.ln_Portrait_download);
@@ -194,15 +197,15 @@ public class DetailActivity extends AppCompatActivity implements View.OnClickLis
     }
 
     public void setBackgroundImage() {
-        BottomSheetDialog dialog = new BottomSheetDialog(this);
-        dialog.setContentView(R.layout.set);
-        LinearLayout layoutPortrait = dialog.findViewById(R.id.ln_Portrait_set);
-        LinearLayout layoutLandscape = dialog.findViewById(R.id.ln_Landscape_set);
-        LinearLayout layoutOriginal = dialog.findViewById(R.id.ln_Original_set);
+        bottomSheetDialog  = new BottomSheetDialog(this);
+        bottomSheetDialog.setContentView(R.layout.set);
+        LinearLayout layoutPortrait = bottomSheetDialog.findViewById(R.id.ln_Portrait_set);
+        LinearLayout layoutLandscape = bottomSheetDialog.findViewById(R.id.ln_Landscape_set);
+        LinearLayout layoutOriginal = bottomSheetDialog.findViewById(R.id.ln_Original_set);
         layoutPortrait.setOnClickListener(this);
         layoutLandscape.setOnClickListener(this);
         layoutOriginal.setOnClickListener(this);
-        dialog.show();
+        bottomSheetDialog.show();
     }
 
 }

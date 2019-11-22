@@ -70,7 +70,7 @@ public class FragmentAll extends Fragment implements TabLayout.BaseOnTabSelected
         wallAdapter = new PageAllAdapter(getActivity().getSupportFragmentManager(),frm);
         viewPager.setAdapter(wallAdapter);
         viewPager.setCurrentItem(0);
-        fragmentNew.callApi(id);
+//        fragmentNew.callApi(id);
         tabLayout.addOnTabSelectedListener(this);
         viewPager.setOffscreenPageLimit(6);
         tabLayout.setupWithViewPager(viewPager);
@@ -79,9 +79,8 @@ public class FragmentAll extends Fragment implements TabLayout.BaseOnTabSelected
     @Override
     public void onTabSelected(TabLayout.Tab tab) {
         viewPager.setCurrentItem(tab.getPosition());
-        fragmentNew.callApi(id);
+//        fragmentNew.callApi(id);
         fragmentRating.callApi(id);
-        fragmentNew.callApiSearch(name);
         fragmentExClusive.callApi(id);
         fragmentHits.callApi(id);
         fragmentRandom.callApi(id);

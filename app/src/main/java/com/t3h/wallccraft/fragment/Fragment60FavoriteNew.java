@@ -5,9 +5,13 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.util.Log;
 import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ProgressBar;
+import android.widget.SearchView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
@@ -33,7 +37,7 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
-public class Fragment60FavoriteNew extends Fragment implements ListImageAdapter.ItemClickListener, SwipeRefreshLayout.OnRefreshListener {
+public class Fragment60FavoriteNew extends BaseFragment<MainActivity> implements ListImageAdapter.ItemClickListener, SwipeRefreshLayout.OnRefreshListener, SearchView.OnQueryTextListener {
     private ArrayList<ListImage> data;
     private ListImageAdapter adapter;
     @BindView(R.id.lv_im_new_60favorite)
@@ -43,6 +47,7 @@ public class Fragment60FavoriteNew extends Fragment implements ListImageAdapter.
     @BindView(R.id.swipe)
     SwipeRefreshLayout swipeRefreshLayout;
     private int pos;
+
 
     public static Fragment60FavoriteNew newInstance(int id) {
         Fragment60FavoriteNew myFragment = new Fragment60FavoriteNew();
@@ -65,6 +70,16 @@ public class Fragment60FavoriteNew extends Fragment implements ListImageAdapter.
 
         return view;
     }
+    @Override
+    protected int getLayoutId() {
+        return R.layout.fragment_new_60favorite;
+    }
+
+    @Override
+    public String getTitle() {
+        return "News";
+    }
+
     @Override
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
@@ -132,4 +147,13 @@ public class Fragment60FavoriteNew extends Fragment implements ListImageAdapter.
         });
     }
 
+    @Override
+    public boolean onQueryTextSubmit(String s) {
+        return true;
+    }
+
+    @Override
+    public boolean onQueryTextChange(String s) {
+        return false;
+    }
 }

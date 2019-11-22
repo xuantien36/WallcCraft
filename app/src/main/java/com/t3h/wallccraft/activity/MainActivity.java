@@ -7,8 +7,10 @@ import androidx.appcompat.widget.SearchView;
 import androidx.appcompat.widget.Toolbar;
 import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
+import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.recyclerview.widget.RecyclerView;
+import androidx.viewpager.widget.ViewPager;
 
 import android.app.ProgressDialog;
 import android.content.Intent;
@@ -23,19 +25,26 @@ import android.widget.Toast;
 
 
 import com.google.android.material.navigation.NavigationView;
+import com.google.android.material.tabs.TabLayout;
 import com.t3h.wallccraft.EvenPost;
 import com.t3h.wallccraft.R;
 import com.t3h.wallccraft.adapter.AlbumAdapter;
+import com.t3h.wallccraft.adapter.PageAllAdapter;
 import com.t3h.wallccraft.apialbum.ApiBuilder;
 import com.t3h.wallccraft.fragment.Fragment60Favorite;
 import com.t3h.wallccraft.fragment.Fragment60FavoriteNew;
 import com.t3h.wallccraft.fragment.FragmentAll;
+import com.t3h.wallccraft.fragment.FragmentAllExclusive;
 import com.t3h.wallccraft.fragment.FragmentDoubleWallPaper;
 import com.t3h.wallccraft.fragment.FragmentExclusive;
 import com.t3h.wallccraft.fragment.FragmentFavorite;
 import com.t3h.wallccraft.fragment.FragmentHistory;
+import com.t3h.wallccraft.fragment.FragmentHitsAll;
 import com.t3h.wallccraft.fragment.FragmentNewAll;
+import com.t3h.wallccraft.fragment.FragmentRandomAll;
+import com.t3h.wallccraft.fragment.FragmentRatingAll;
 import com.t3h.wallccraft.fragment.FragmentSetting;
+import com.t3h.wallccraft.fragment.FragmentStreamAll;
 import com.t3h.wallccraft.fragment.FragmentSubscription;
 import com.t3h.wallccraft.model.Album;
 import com.t3h.wallccraft.model.AlbumRespone;
@@ -56,6 +65,19 @@ import retrofit2.Response;
 
 public class MainActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener,
         SearchView.OnQueryTextListener, AlbumAdapter.ItemClickListener {
+
+    private PageAllAdapter wallAdapter;
+    private FragmentNewAll fragmentNew = new FragmentNewAll();
+    private FragmentRatingAll fragmentRating = new FragmentRatingAll();
+    private FragmentAllExclusive fragmentExClusive = new FragmentAllExclusive();
+    private FragmentHitsAll fragmentHits = new FragmentHitsAll();
+    private FragmentRandomAll fragmentRandom = new FragmentRandomAll();
+    private FragmentStreamAll fragmentStream = new FragmentStreamAll();
+
+    @BindView(R.id.tablayoutAll)
+    TabLayout tabLayout;
+    @BindView(R.id.pagerAll)
+    ViewPager viewPager;
     @BindView(R.id.toolbar)
     Toolbar toolbar;
     @BindView(R.id.drawerlayout)
@@ -69,7 +91,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     private SearchView searchView;
     @BindView(R.id.progressBar)
     ProgressBar progressBar;
-
+       String name;
 
 
     private static CallBackSearch callBackSearch;
@@ -86,10 +108,11 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         ButterKnife.bind(this);
         progressBar.setVisibility(View.VISIBLE);
         initView();
+        initAll();
         initData();
-        getSupportFragmentManager().beginTransaction().replace(R.id.frame_main,
-                FragmentAll.newInstance()).addToBackStack(null).commit();
-        EventBus.getDefault().postSticky(new EvenPost(1));
+//        getSupportFragmentManager().beginTransaction().replace(R.id.frame_main,
+//                FragmentAll.newInstance()).addToBackStack(null).commit();
+//        EventBus.getDefault().postSticky(new EvenPost(1));
         ApiBuilder.getInstance().getAlbum().enqueue(new Callback<AlbumRespone>() {
             @Override
             public void onResponse(Call<AlbumRespone> call, Response<AlbumRespone> response) {
@@ -115,6 +138,21 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
     }
 
+    private void initAll() {
+            Fragment[] frm = {fragmentNew, fragmentRating,fragmentExClusive,fragmentHits,fragmentRandom,fragmentStream};
+            wallAdapter = new PageAllAdapter(getSupportFragmentManager(),frm);
+            viewPager.setAdapter(wallAdapter);
+            fragmentNew.callApi(1);
+            fragmentRating.callApi(1);
+            fragmentExClusive.callApi(1);
+            fragmentHits.callApi(1);
+            fragmentRandom.callApi(1);
+            fragmentStream.callApi(1);
+//        fragmentNew.callApiSearch(name);
+            viewPager.setCurrentItem(0);
+            viewPager.setOffscreenPageLimit(6);
+            tabLayout.setupWithViewPager(viewPager);
+        }
     private void initData() {
         arr = new ArrayList<>();
         arr.add(new Album(0, R.drawable.diamondabc, "Exclusive wallpapers"));
@@ -160,8 +198,10 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
     @Override
     public boolean onQueryTextSubmit(String query) {
+
+
 //        EventBus.getDefault().postSticky(new EvenPost());
-//        callBackSearch.onQuerySearch(query);
+        callBackSearch.onQuerySearch(query);
         return true;
     }
 

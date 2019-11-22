@@ -10,11 +10,6 @@ public class PageAllAdapter extends FragmentPagerAdapter {
 
     private Fragment[] frmData;
 
-//    public void setFrmData(Fragment[] frmData) {
-//        this.frmData = frmData;
-//        notifyDataSetChanged();
-
-
     public PageAllAdapter(@NonNull FragmentManager fm,Fragment[] frmData) {
         super(fm);
         this.frmData=frmData;
