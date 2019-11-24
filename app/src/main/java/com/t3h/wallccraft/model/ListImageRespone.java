@@ -40,5 +40,4 @@ public class ListImageRespone {
     public void setListImage(List<ListImage> listImage) {
         this.listImage = listImage;
     }
-
 }

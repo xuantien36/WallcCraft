@@ -30,27 +30,31 @@ import retrofit2.Callback;
 import retrofit2.Response;
 
 public class FragmentAllExclusive extends Fragment implements ListImageAdapter.ItemClickListener, SwipeRefreshLayout.OnRefreshListener {
-    private ArrayList<ListImage>data;
+    private ArrayList<ListImage> data;
     private ListImageAdapter adapter;
     @BindView(R.id.lv_all_exclusive)
     RecyclerView recyclerView;
-    @BindView(R.id.swipe)SwipeRefreshLayout swipeRefreshLayout;
+    @BindView(R.id.swipe)
+    SwipeRefreshLayout swipeRefreshLayout;
 
-    public static FragmentAllExclusive newInstance(int id) {
+    public static FragmentAllExclusive newInstance() {
         FragmentAllExclusive myFragment = new FragmentAllExclusive();
         Bundle args = new Bundle();
-        args.putInt("someIntExclusiveAll", id);
         myFragment.setArguments(args);
         return myFragment;
     }
-    public void callApi(int id){
+
+    public void callApi(int id) {
         ApiBuilder.getInstance().getAlbumDetail(String.valueOf(id)).enqueue(new Callback<ListImageRespone>() {
             @Override
             public void onResponse(Call<ListImageRespone> call, Response<ListImageRespone> response) {
                 List<ListImage> listImage = response.body().getListImage();
-                if (listImage!=null){
-                    adapter.setData((ArrayList<ListImage>) listImage);
-                    data.addAll(listImage);
+                if (listImage != null) {
+                    if (adapter != null) {
+                        adapter.setData((ArrayList<ListImage>) listImage);
+                        data.addAll(listImage);
+                    }
+
                 }
             }
 
@@ -67,10 +71,10 @@ public class FragmentAllExclusive extends Fragment implements ListImageAdapter.I
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        View view=inflater.inflate(R.layout.fragment_all_exclusive,container,false);
-        ButterKnife.bind(this,view);
-        data=new ArrayList<>();
-        adapter=new ListImageAdapter(getContext());
+        View view = inflater.inflate(R.layout.fragment_all_exclusive, container, false);
+        ButterKnife.bind(this, view);
+        data = new ArrayList<>();
+        adapter = new ListImageAdapter(getContext());
         recyclerView.setAdapter(adapter);
         adapter.setOnListener(this);
         return view;
@@ -82,6 +86,7 @@ public class FragmentAllExclusive extends Fragment implements ListImageAdapter.I
         initView();
 
     }
+
     private void initView() {
         swipeRefreshLayout.setOnRefreshListener(this);
         swipeRefreshLayout.setColorSchemeResources(R.color.colorTab);
@@ -92,8 +97,8 @@ public class FragmentAllExclusive extends Fragment implements ListImageAdapter.I
 
     @Override
     public void onClicked(int position) {
-        Intent intent=new Intent(getContext(), DetailActivity.class);
-        intent.putExtra("data",data.get(position));
+        Intent intent = new Intent(getContext(), DetailActivity.class);
+        intent.putExtra("data", data.get(position));
         startActivity(intent);
 
     }

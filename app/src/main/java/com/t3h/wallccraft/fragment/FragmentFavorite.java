@@ -30,7 +30,6 @@ public class FragmentFavorite extends Fragment implements ListImageAdapter.ItemC
     RecyclerView getRecycleview;
     @BindView(R.id.swipe)
     SwipeRefreshLayout swipeRefreshLayout;
-    private Handler handler;
     @BindView(R.id.progressBarFavorite)
     ProgressBar progressBar;
 

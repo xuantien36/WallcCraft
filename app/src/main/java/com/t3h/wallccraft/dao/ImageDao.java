@@ -19,6 +19,9 @@ public interface ImageDao {
     @Query("SELECT * FROM image WHERE favorite = 1")
     List<ListImage> getAllFavorite();
 
+    @Query("SELECT * FROM image WHERE history = 1")
+    List<ListImage> getAllHistoty();
+
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     void insert(ListImage... image);
 

@@ -40,21 +40,23 @@ public class FragmentAll extends Fragment implements TabLayout.BaseOnTabSelected
     @BindView(R.id.pagerAll)
     ViewPager viewPager;
     int id;
-    int position=0;
+    int position = 0;
     String name;
 
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        View view=inflater.inflate(R.layout.fragment_all,container,false);
-        ButterKnife.bind(this,view);
+        View view = inflater.inflate(R.layout.fragment_all, container, false);
+        ButterKnife.bind(this, view);
         setHasOptionsMenu(true);
         EventBus.getDefault().register(this);
         return view;
     }
-    public static FragmentAll newInstance() {
+
+    public static FragmentAll newInstance(int id) {
         FragmentAll myFragment = new FragmentAll();
         Bundle args = new Bundle();
+        args.putInt("idBundle", id);
         myFragment.setArguments(args);
         return myFragment;
     }
@@ -66,25 +68,27 @@ public class FragmentAll extends Fragment implements TabLayout.BaseOnTabSelected
     }
 
     private void initView() {
-        Fragment[] frm = {fragmentNew, fragmentRating,fragmentExClusive,fragmentHits,fragmentRandom,fragmentStream};
-        wallAdapter = new PageAllAdapter(getActivity().getSupportFragmentManager(),frm);
+        Fragment[] frm = {fragmentNew, fragmentRating, fragmentExClusive, fragmentHits, fragmentRandom, fragmentStream};
+        wallAdapter = new PageAllAdapter(getChildFragmentManager(), frm);
         viewPager.setAdapter(wallAdapter);
         viewPager.setCurrentItem(0);
-//        fragmentNew.callApi(id);
+        fragmentNew.callApi(getArguments().getInt("idBundle"));
         tabLayout.addOnTabSelectedListener(this);
         viewPager.setOffscreenPageLimit(6);
         tabLayout.setupWithViewPager(viewPager);
+
+        Log.e("testtttt::", String.valueOf(getArguments().getInt("idBundle")));
     }
 
     @Override
     public void onTabSelected(TabLayout.Tab tab) {
         viewPager.setCurrentItem(tab.getPosition());
-//        fragmentNew.callApi(id);
-        fragmentRating.callApi(id);
-        fragmentExClusive.callApi(id);
-        fragmentHits.callApi(id);
-        fragmentRandom.callApi(id);
-        fragmentStream.callApi(id);
+        fragmentNew.callApi(getArguments().getInt("idBundle"));
+        fragmentRating.callApi(getArguments().getInt("idBundle"));
+        fragmentExClusive.callApi(getArguments().getInt("idBundle"));
+        fragmentHits.callApi(getArguments().getInt("idBundle"));
+        fragmentRandom.callApi(getArguments().getInt("idBundle"));
+        fragmentStream.callApi(getArguments().getInt("idBundle"));
 
     }
 
@@ -97,10 +101,10 @@ public class FragmentAll extends Fragment implements TabLayout.BaseOnTabSelected
     public void onTabReselected(TabLayout.Tab tab) {
 
     }
+
     @Subscribe(threadMode = ThreadMode.MAIN, sticky = true)
     public void onEvent(EvenPost evenPost) {
-//        Log.e("All", String.valueOf(evenPost.getId()));
-//        name=evenPost.getName();
+        Log.e("All", String.valueOf(evenPost.getId()));
         id = evenPost.getId();
         EventBus.getDefault().removeStickyEvent(evenPost);
     }

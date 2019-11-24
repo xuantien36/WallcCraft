@@ -33,10 +33,29 @@ public class ListImage implements Serializable {
     private int albumId;
     @ColumnInfo(name = "favorite")
     private boolean favorite;
+    @ColumnInfo(name = "history")
+    private boolean history;
+
+    public boolean isHistory() {
+        return history;
+    }
+
+    public void setHistory(boolean history) {
+        this.history = history;
+    }
 
     public ListImage(int id, String thumbUrl) {
         this.id = id;
         this.thumbUrl = thumbUrl;
+    }
+    private int icon;
+
+    public void setIcon(int icon) {
+        this.icon = icon;
+    }
+
+    public int getIcon() {
+        return icon;
     }
 
     public boolean isFavorite() {

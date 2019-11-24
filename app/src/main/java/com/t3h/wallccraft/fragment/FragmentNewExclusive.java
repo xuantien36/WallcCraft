@@ -59,18 +59,18 @@ public class FragmentNewExclusive extends Fragment implements ListImageAdapter.I
 
     private void initData() {
         arr = new ArrayList<>();
-        arr.add(new ListImage(1,"https://tse2.mm.bing.net/th?id=OIP.kd5lRp1BejIDDeFJKBESgwHaLG&pid=Api&P=0&w=300&h=300"));
-        arr.add(new ListImage(2,"https://tse2.mm.bing.net/th?id=OIP.kd5lRp1BejIDDeFJKBESgwHaLG&pid=Api&P=0&w=300&h=300"));
+        arr.add(new ListImage(1,"https://tse3.mm.bing.net/th?id=OIP.RnL-xNIsV2KLX-vY_ZREggHaNK&pid=Api&P=0&w=300&h=300"));
+        arr.add(new ListImage(2,"http://2.bp.blogspot.com/-5zjV7J3Nckc/UjrAFFOwT0I/AAAAAAAAFk0/_LEcRCf9QVA/s1600/anh+phong+canh+thien+nhien+tuyet+dep+(1).jpg"));
         arr.add(new ListImage(3,"https://tse2.mm.bing.net/th?id=OIP.kd5lRp1BejIDDeFJKBESgwHaLG&pid=Api&P=0&w=300&h=300"));
-        arr.add(new ListImage(4,"https://tse2.mm.bing.net/th?id=OIP.kd5lRp1BejIDDeFJKBESgwHaLG&pid=Api&P=0&w=300&h=300"));
-        arr.add(new ListImage(5,"https://tse2.mm.bing.net/th?id=OIP.kd5lRp1BejIDDeFJKBESgwHaLG&pid=Api&P=0&w=300&h=300"));
+        arr.add(new ListImage(4,"https://tse3.mm.bing.net/th?id=OIP.RnL-xNIsV2KLX-vY_ZREggHaNK&pid=Api&P=0&w=300&h=300"));
+        arr.add(new ListImage(5,"http://2.bp.blogspot.com/-5zjV7J3Nckc/UjrAFFOwT0I/AAAAAAAAFk0/_LEcRCf9QVA/s1600/anh+phong+canh+thien+nhien+tuyet+dep+(1).jpg"));
         arr.add(new ListImage(6,"https://tse2.mm.bing.net/th?id=OIP.kd5lRp1BejIDDeFJKBESgwHaLG&pid=Api&P=0&w=300&h=300"));
-        arr.add(new ListImage(7,"https://tse2.mm.bing.net/th?id=OIP.kd5lRp1BejIDDeFJKBESgwHaLG&pid=Api&P=0&w=300&h=300"));
+        arr.add(new ListImage(7,"http://2.bp.blogspot.com/-5zjV7J3Nckc/UjrAFFOwT0I/AAAAAAAAFk0/_LEcRCf9QVA/s1600/anh+phong+canh+thien+nhien+tuyet+dep+(1).jpg"));
         arr.add(new ListImage(8,"https://tse2.mm.bing.net/th?id=OIP.kd5lRp1BejIDDeFJKBESgwHaLG&pid=Api&P=0&w=300&h=300"));
-        arr.add(new ListImage(9,"https://tse2.mm.bing.net/th?id=OIP.kd5lRp1BejIDDeFJKBESgwHaLG&pid=Api&P=0&w=300&h=300"));
+        arr.add(new ListImage(9,"http://2.bp.blogspot.com/-5zjV7J3Nckc/UjrAFFOwT0I/AAAAAAAAFk0/_LEcRCf9QVA/s1600/anh+phong+canh+thien+nhien+tuyet+dep+(1).jpg"));
         arr.add(new ListImage(10,"https://tse2.mm.bing.net/th?id=OIP.kd5lRp1BejIDDeFJKBESgwHaLG&pid=Api&P=0&w=300&h=300"));
-        arr.add(new ListImage(11,"https://tse2.mm.bing.net/th?id=OIP.kd5lRp1BejIDDeFJKBESgwHaLG&pid=Api&P=0&w=300&h=300"));
-        arr.add(new ListImage(12,"https://tse2.mm.bing.net/th?id=OIP.kd5lRp1BejIDDeFJKBESgwHaLG&pid=Api&P=0&w=300&h=300"));
+        arr.add(new ListImage(11,"http://2.bp.blogspot.com/-5zjV7J3Nckc/UjrAFFOwT0I/AAAAAAAAFk0/_LEcRCf9QVA/s1600/anh+phong+canh+thien+nhien+tuyet+dep+(1).jpg"));
+        arr.add(new ListImage(12,"https://tse3.mm.bing.net/th?id=OIP.RnL-xNIsV2KLX-vY_ZREggHaNK&pid=Api&P=0&w=300&h=300"));
         adapter.setData(arr);
         swipeRefreshLayout.setRefreshing(false);
     }

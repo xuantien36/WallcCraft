@@ -5,6 +5,7 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
@@ -37,25 +38,27 @@ public class Fragment60FavoriteRandom extends Fragment implements ListImageAdapt
     RecyclerView recyclerView;
     @BindView(R.id.swipe)
     SwipeRefreshLayout swipeRefreshLayout;
-    private  int pos;
+    private int pos;
+    @BindView(R.id.tv_test)
+    TextView tvTest;
+
 
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_random_60favorite, container, false);
         ButterKnife.bind(this, view);
-        listImages=new ArrayList<>();
+        listImages = new ArrayList<>();
         adapter = new ListImageAdapter(getContext());
         recyclerView.setAdapter(adapter);
         adapter.setOnListener(this);
 //        callApi(getArguments().getInt(""));
         return view;
     }
-    public static Fragment60FavoriteRandom newInstance(int id) {
-        Fragment60FavoriteRandom myFragment = new Fragment60FavoriteRandom();
 
+    public static Fragment60FavoriteRandom newInstance() {
+        Fragment60FavoriteRandom myFragment = new Fragment60FavoriteRandom();
         Bundle args = new Bundle();
-        args.putInt("someInt", id);
         myFragment.setArguments(args);
         return myFragment;
     }
@@ -65,6 +68,7 @@ public class Fragment60FavoriteRandom extends Fragment implements ListImageAdapt
         super.onActivityCreated(savedInstanceState);
         initView();
     }
+
     private void initView() {
         swipeRefreshLayout.setOnRefreshListener(this);
         swipeRefreshLayout.setColorSchemeResources(R.color.colorTab);
@@ -105,17 +109,22 @@ public class Fragment60FavoriteRandom extends Fragment implements ListImageAdapt
         recyclerView.setAdapter(adapter);
 
     }
+
     public void callApi(int id) {
-        pos=id;
+        pos = id;
         ApiBuilder.getInstance().getAlbumDetail(String.valueOf(id)).enqueue(new Callback<ListImageRespone>() {
             @Override
             public void onResponse(Call<ListImageRespone> call, Response<ListImageRespone> response) {
                 ArrayList<ListImage> data = (ArrayList<ListImage>) response.body().getListImage();
-                if (data != null) {
+                if (data != null &&data.size()>0) {
                     adapter.setData(data);
                     listImages.addAll(data);
+                    recyclerView.setVisibility(View.VISIBLE);
+                    tvTest.setVisibility(View.GONE);
                 } else {
-                    Toast.makeText(getContext(), "error", Toast.LENGTH_SHORT).show();
+                    recyclerView.setVisibility(View.GONE);
+                    tvTest.setVisibility(View.VISIBLE);
+
                 }
 
             }

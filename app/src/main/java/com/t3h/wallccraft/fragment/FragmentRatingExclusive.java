@@ -53,17 +53,17 @@ public class FragmentRatingExclusive extends Fragment implements ListImageAdapte
 
     private void initData() {
         arrayList = new ArrayList<>();
-        arrayList.add(new ListImage(1,"http://4.bp.blogspot.com/-Mz3_1zkQ85k/U98iFr_DJwI/AAAAAAAAArs/PtJhgVM5In0/s000/anh-dep-thien-nhien-thang-canh-thien-nhien-dep-ngo-ngang-o-nhat-ban-6.jpg"));
+        arrayList.add(new ListImage(1,"https://tse3.mm.bing.net/th?id=OIP.RnL-xNIsV2KLX-vY_ZREggHaNK&pid=Api&P=0&w=300&h=300"));
         arrayList.add(new ListImage(2,"http://4.bp.blogspot.com/-Mz3_1zkQ85k/U98iFr_DJwI/AAAAAAAAArs/PtJhgVM5In0/s000/anh-dep-thien-nhien-thang-canh-thien-nhien-dep-ngo-ngang-o-nhat-ban-6.jpg"));
-        arrayList.add(new ListImage(3,"http://4.bp.blogspot.com/-Mz3_1zkQ85k/U98iFr_DJwI/AAAAAAAAArs/PtJhgVM5In0/s000/anh-dep-thien-nhien-thang-canh-thien-nhien-dep-ngo-ngang-o-nhat-ban-6.jpg"));
+        arrayList.add(new ListImage(3,"https://tse3.mm.bing.net/th?id=OIP.RnL-xNIsV2KLX-vY_ZREggHaNK&pid=Api&P=0&w=300&h=300"));
         arrayList.add(new ListImage(4,"http://4.bp.blogspot.com/-Mz3_1zkQ85k/U98iFr_DJwI/AAAAAAAAArs/PtJhgVM5In0/s000/anh-dep-thien-nhien-thang-canh-thien-nhien-dep-ngo-ngang-o-nhat-ban-6.jpg"));
-        arrayList.add(new ListImage(5,"http://4.bp.blogspot.com/-Mz3_1zkQ85k/U98iFr_DJwI/AAAAAAAAArs/PtJhgVM5In0/s000/anh-dep-thien-nhien-thang-canh-thien-nhien-dep-ngo-ngang-o-nhat-ban-6.jpg"));
+        arrayList.add(new ListImage(5,"https://tse3.mm.bing.net/th?id=OIP.RnL-xNIsV2KLX-vY_ZREggHaNK&pid=Api&P=0&w=300&h=300"));
         arrayList.add(new ListImage(6,"http://4.bp.blogspot.com/-Mz3_1zkQ85k/U98iFr_DJwI/AAAAAAAAArs/PtJhgVM5In0/s000/anh-dep-thien-nhien-thang-canh-thien-nhien-dep-ngo-ngang-o-nhat-ban-6.jpg"));
-        arrayList.add(new ListImage(7,"http://4.bp.blogspot.com/-Mz3_1zkQ85k/U98iFr_DJwI/AAAAAAAAArs/PtJhgVM5In0/s000/anh-dep-thien-nhien-thang-canh-thien-nhien-dep-ngo-ngang-o-nhat-ban-6.jpg"));
+        arrayList.add(new ListImage(7,"https://tse3.mm.bing.net/th?id=OIP.RnL-xNIsV2KLX-vY_ZREggHaNK&pid=Api&P=0&w=300&h=300"));
         arrayList.add(new ListImage(8,"http://4.bp.blogspot.com/-Mz3_1zkQ85k/U98iFr_DJwI/AAAAAAAAArs/PtJhgVM5In0/s000/anh-dep-thien-nhien-thang-canh-thien-nhien-dep-ngo-ngang-o-nhat-ban-6.jpg"));
-        arrayList.add(new ListImage(9,"http://4.bp.blogspot.com/-Mz3_1zkQ85k/U98iFr_DJwI/AAAAAAAAArs/PtJhgVM5In0/s000/anh-dep-thien-nhien-thang-canh-thien-nhien-dep-ngo-ngang-o-nhat-ban-6.jpg"));
+        arrayList.add(new ListImage(9,"https://tse3.mm.bing.net/th?id=OIP.RnL-xNIsV2KLX-vY_ZREggHaNK&pid=Api&P=0&w=300&h=300"));
         arrayList.add(new ListImage(10,"http://4.bp.blogspot.com/-Mz3_1zkQ85k/U98iFr_DJwI/AAAAAAAAArs/PtJhgVM5In0/s000/anh-dep-thien-nhien-thang-canh-thien-nhien-dep-ngo-ngang-o-nhat-ban-6.jpg"));
-        arrayList.add(new ListImage(11,"http://4.bp.blogspot.com/-Mz3_1zkQ85k/U98iFr_DJwI/AAAAAAAAArs/PtJhgVM5In0/s000/anh-dep-thien-nhien-thang-canh-thien-nhien-dep-ngo-ngang-o-nhat-ban-6.jpg"));
+        arrayList.add(new ListImage(11,"https://tse3.mm.bing.net/th?id=OIP.RnL-xNIsV2KLX-vY_ZREggHaNK&pid=Api&P=0&w=300&h=300"));
         arrayList.add(new ListImage(12,"http://4.bp.blogspot.com/-Mz3_1zkQ85k/U98iFr_DJwI/AAAAAAAAArs/PtJhgVM5In0/s000/anh-dep-thien-nhien-thang-canh-thien-nhien-dep-ngo-ngang-o-nhat-ban-6.jpg"));
         imageAdapter.setData(arrayList);
         swipeRefreshLayout.setRefreshing(false);

@@ -9,53 +9,39 @@ import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
+import androidx.fragment.app.FragmentTransaction;
 import androidx.recyclerview.widget.RecyclerView;
-import androidx.viewpager.widget.ViewPager;
 
-import android.app.ProgressDialog;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
-import android.os.Handler;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.ImageView;
 import android.widget.ProgressBar;
+import android.widget.TextView;
 import android.widget.Toast;
 
-
 import com.google.android.material.navigation.NavigationView;
-import com.google.android.material.tabs.TabLayout;
 import com.t3h.wallccraft.EvenPost;
 import com.t3h.wallccraft.R;
 import com.t3h.wallccraft.adapter.AlbumAdapter;
-import com.t3h.wallccraft.adapter.PageAllAdapter;
 import com.t3h.wallccraft.apialbum.ApiBuilder;
 import com.t3h.wallccraft.fragment.Fragment60Favorite;
-import com.t3h.wallccraft.fragment.Fragment60FavoriteNew;
 import com.t3h.wallccraft.fragment.FragmentAll;
-import com.t3h.wallccraft.fragment.FragmentAllExclusive;
 import com.t3h.wallccraft.fragment.FragmentDoubleWallPaper;
 import com.t3h.wallccraft.fragment.FragmentExclusive;
 import com.t3h.wallccraft.fragment.FragmentFavorite;
 import com.t3h.wallccraft.fragment.FragmentHistory;
-import com.t3h.wallccraft.fragment.FragmentHitsAll;
-import com.t3h.wallccraft.fragment.FragmentNewAll;
-import com.t3h.wallccraft.fragment.FragmentRandomAll;
-import com.t3h.wallccraft.fragment.FragmentRatingAll;
-import com.t3h.wallccraft.fragment.FragmentSetting;
-import com.t3h.wallccraft.fragment.FragmentStreamAll;
 import com.t3h.wallccraft.fragment.FragmentSubscription;
 import com.t3h.wallccraft.model.Album;
 import com.t3h.wallccraft.model.AlbumRespone;
-import com.t3h.wallccraft.model.ListImage;
-import com.t3h.wallccraft.model.ListImageRespone;
 
 import org.greenrobot.eventbus.EventBus;
 
 import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -66,18 +52,6 @@ import retrofit2.Response;
 public class MainActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener,
         SearchView.OnQueryTextListener, AlbumAdapter.ItemClickListener {
 
-    private PageAllAdapter wallAdapter;
-    private FragmentNewAll fragmentNew = new FragmentNewAll();
-    private FragmentRatingAll fragmentRating = new FragmentRatingAll();
-    private FragmentAllExclusive fragmentExClusive = new FragmentAllExclusive();
-    private FragmentHitsAll fragmentHits = new FragmentHitsAll();
-    private FragmentRandomAll fragmentRandom = new FragmentRandomAll();
-    private FragmentStreamAll fragmentStream = new FragmentStreamAll();
-
-    @BindView(R.id.tablayoutAll)
-    TabLayout tabLayout;
-    @BindView(R.id.pagerAll)
-    ViewPager viewPager;
     @BindView(R.id.toolbar)
     Toolbar toolbar;
     @BindView(R.id.drawerlayout)
@@ -88,10 +62,13 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     RecyclerView recyclerView;
     @BindView(R.id.navi)
     NavigationView navigationView;
-    private SearchView searchView;
     @BindView(R.id.progressBar)
     ProgressBar progressBar;
-       String name;
+    @BindView(R.id.search)
+    ImageView imageView;
+    @BindView(R.id.title)
+    TextView tvTitle;
+    private FragmentTransaction fragmentTransaction;
 
 
     private static CallBackSearch callBackSearch;
@@ -100,7 +77,6 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         MainActivity.callBackSearch = callBackSearch;
     }
 
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -108,11 +84,10 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         ButterKnife.bind(this);
         progressBar.setVisibility(View.VISIBLE);
         initView();
-        initAll();
         initData();
-//        getSupportFragmentManager().beginTransaction().replace(R.id.frame_main,
-//                FragmentAll.newInstance()).addToBackStack(null).commit();
+        replaceFragment(FragmentAll.newInstance(1), "");
 //        EventBus.getDefault().postSticky(new EvenPost(1));
+
         ApiBuilder.getInstance().getAlbum().enqueue(new Callback<AlbumRespone>() {
             @Override
             public void onResponse(Call<AlbumRespone> call, Response<AlbumRespone> response) {
@@ -123,7 +98,6 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                     }
                     progressBar.setVisibility(View.GONE);
                     albumAdapter.setAlbum(arr);
-
 
                 } else {
                     Toast.makeText(MainActivity.this, "error", Toast.LENGTH_SHORT).show();
@@ -138,21 +112,6 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
     }
 
-    private void initAll() {
-            Fragment[] frm = {fragmentNew, fragmentRating,fragmentExClusive,fragmentHits,fragmentRandom,fragmentStream};
-            wallAdapter = new PageAllAdapter(getSupportFragmentManager(),frm);
-            viewPager.setAdapter(wallAdapter);
-            fragmentNew.callApi(1);
-            fragmentRating.callApi(1);
-            fragmentExClusive.callApi(1);
-            fragmentHits.callApi(1);
-            fragmentRandom.callApi(1);
-            fragmentStream.callApi(1);
-//        fragmentNew.callApiSearch(name);
-            viewPager.setCurrentItem(0);
-            viewPager.setOffscreenPageLimit(6);
-            tabLayout.setupWithViewPager(viewPager);
-        }
     private void initData() {
         arr = new ArrayList<>();
         arr.add(new Album(0, R.drawable.diamondabc, "Exclusive wallpapers"));
@@ -164,8 +123,9 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         arr.add(new Album(0, R.drawable.instagramabc, " Our Instagram"));
 
     }
+
     private void initView() {
-        toolbar.setTitle("All");
+        tvTitle.setText("All");
         setSupportActionBar(toolbar);
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
                 this, drawerLayout, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
@@ -175,14 +135,25 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         albumAdapter = new AlbumAdapter(this);
         recyclerView.setAdapter(albumAdapter);
         albumAdapter.setOnListener(this);
+        imageView.setOnClickListener(view -> {
+            Intent intent = new Intent(MainActivity.this, SearchActivity.class);
+            startActivity(intent);
+        });
 
     }
+
+    public void replaceFragment(Fragment fragment, String tag) {
+        try {
+            fragmentTransaction = getSupportFragmentManager().beginTransaction();
+            fragmentTransaction.replace(R.id.frame_main, fragment, tag);
+            fragmentTransaction.addToBackStack(tag);
+            fragmentTransaction.commit();
+        } catch (Exception e) {
+        }
+    }
+
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-        getMenuInflater().inflate(R.menu.menu_search, menu);
-        MenuItem item = menu.findItem(R.id.search);
-        searchView = (SearchView) item.getActionView();
-        searchView.setOnQueryTextListener(this);
         return true;
     }
 
@@ -198,10 +169,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
     @Override
     public boolean onQueryTextSubmit(String query) {
-
-
-//        EventBus.getDefault().postSticky(new EvenPost());
-        callBackSearch.onQuerySearch(query);
+//        callBackSearch.onQuerySearch(query);
         return true;
     }
 
@@ -212,41 +180,35 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
     @Override
     public void onClicked(int position) {
-        toolbar.setTitle(arr.get(position).getTitle());
+        tvTitle.setText(arr.get(position).getTitle());
         drawerLayout.closeDrawer(GravityCompat.START);
         if (position >= 0 && position <= 6) {
             switch (position) {
                 case 0:
-                    getSupportFragmentManager().beginTransaction().replace(R.id.frame_main,
-                            new FragmentExclusive()).addToBackStack(null).commit();
+                    replaceFragment(new FragmentExclusive(), "");
                     break;
 
                 case 1:
-                    getSupportFragmentManager().beginTransaction().replace(R.id.frame_main,
-                            new FragmentDoubleWallPaper()).addToBackStack(null).commit();
+                    replaceFragment(new FragmentDoubleWallPaper(), "");
                     break;
 
                 case 2:
-                    getSupportFragmentManager().beginTransaction().replace(R.id.frame_main,
-                            new FragmentFavorite()).addToBackStack(null).commit();
 
+                    replaceFragment(new FragmentFavorite(), "");
+                    imageView.setVisibility(View.GONE);
                     break;
 
                 case 3:
-                    getSupportFragmentManager().beginTransaction().replace(R.id.frame_main,
-                            new FragmentHistory()).addToBackStack(null).commit();
-
+                    replaceFragment(new FragmentHistory(), "");
                     break;
                 case 4:
-                    getSupportFragmentManager().beginTransaction().replace(R.id.frame_main,
-                            new FragmentSubscription()).addToBackStack(null).commit();
-
+                    replaceFragment(new FragmentSubscription(), "");
                     break;
 
                 case 5:
-                    getSupportFragmentManager().beginTransaction().replace(R.id.frame_main,
-                            new FragmentSetting()).addToBackStack(null).commit();
-
+                    Intent setting = new Intent(this, ActivitySetting.class);
+                    setting.putExtra("setting", arr.get(position).getTitle());
+                    startActivity(setting);
                     break;
                 case 6:
                     Intent intent = new Intent(Intent.ACTION_VIEW).
@@ -255,17 +217,18 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                     break;
 
             }
-        } else {
-//            getSupportFragmentManager().beginTransaction().replace(R.id.frame_main,
-//                    FragmentAll.newInstance()).addToBackStack(null).commit();
-//            EventBus.getDefault().postSticky(new EvenPost(arr.get(position).getId()));
 
-            getSupportFragmentManager().beginTransaction().replace(R.id.frame_main,
-                    Fragment60Favorite.newInstance()).commit();
-            EventBus.getDefault().postSticky(new EvenPost(arr.get(position).getId()));
+        } else if (arr.get(position).getId() == 1) {
+            replaceFragment(FragmentAll.newInstance(arr.get(position).getId()), "");
+//            EventBus.getDefault().postSticky(new EvenPost(arr.get(position).getId()));
+        } else {
+
+            replaceFragment(Fragment60Favorite.newInstance(arr.get(position).getId()), "");
+//            EventBus.getDefault().postSticky(new EvenPost(arr.get(position).getId()));
         }
 
     }
+
     @Override
     public void onLongClicked(int position) {
     }
@@ -278,5 +241,11 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     public void onBackPressed() {
         finish();
         super.onBackPressed();
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        Log.e("bbbbbb", "bbbbb");
     }
 }

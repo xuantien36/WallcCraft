@@ -20,9 +20,17 @@ public class Image implements Serializable {
     @SerializedName("picture")
     @Expose
     private int image;
-    public Image(int id, int image) {
+    @SerializedName("picture")
+    @Expose
+    private String name;
+    public Image(int id, int image,String name) {
         this.id = id;
         this.image = image;
+        this.name=name;
+    }
+
+    public String getName() {
+        return name;
     }
 
     public int getId() {

@@ -12,6 +12,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ProgressBar;
 import android.widget.SearchView;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
@@ -37,7 +38,7 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
-public class Fragment60FavoriteNew extends BaseFragment<MainActivity> implements ListImageAdapter.ItemClickListener, SwipeRefreshLayout.OnRefreshListener, SearchView.OnQueryTextListener {
+public class Fragment60FavoriteNew extends Fragment implements ListImageAdapter.ItemClickListener, SwipeRefreshLayout.OnRefreshListener, SearchView.OnQueryTextListener {
     private ArrayList<ListImage> data;
     private ListImageAdapter adapter;
     @BindView(R.id.lv_im_new_60favorite)
@@ -46,6 +47,8 @@ public class Fragment60FavoriteNew extends BaseFragment<MainActivity> implements
     ProgressBar progressBar;
     @BindView(R.id.swipe)
     SwipeRefreshLayout swipeRefreshLayout;
+    @BindView(R.id.tv_test)
+    TextView tvTest;
     private int pos;
 
 
@@ -69,15 +72,6 @@ public class Fragment60FavoriteNew extends BaseFragment<MainActivity> implements
         adapter.setOnListener(this);
 
         return view;
-    }
-    @Override
-    protected int getLayoutId() {
-        return R.layout.fragment_new_60favorite;
-    }
-
-    @Override
-    public String getTitle() {
-        return "News";
     }
 
     @Override
@@ -124,19 +118,22 @@ public class Fragment60FavoriteNew extends BaseFragment<MainActivity> implements
     }
 
     public void callApi(int id) {
-        pos=id;
+        pos = id;
         ApiBuilder.getInstance().getAlbumDetail(String.valueOf(id)).enqueue(new Callback<ListImageRespone>() {
             @Override
             public void onResponse(Call<ListImageRespone> call, Response<ListImageRespone> response) {
                 List<ListImage> listImage = response.body().getListImage();
                 Log.e("aa", response.body().getListImage().toString());
-                if (listImage != null) {
+                if (listImage != null && listImage.size() > 0) {
                     adapter.setData((ArrayList<ListImage>) listImage);
                     progressBar.setVisibility(View.GONE);
                     data.addAll(listImage);
-
+                    recyclerView.setVisibility(View.VISIBLE);
+                    tvTest.setVisibility(View.GONE);
                 } else {
-                    Toast.makeText(getContext(), "error", Toast.LENGTH_SHORT).show();
+                    recyclerView.setVisibility(View.GONE);
+                    tvTest.setVisibility(View.VISIBLE);
+                    progressBar.setVisibility(View.GONE);
                 }
             }
 

@@ -1,29 +1,23 @@
 package com.t3h.wallccraft.fragment;
-
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Toast;
-
+import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
-
 import com.t3h.wallccraft.R;
 import com.t3h.wallccraft.activity.DetailActivity;
-import com.t3h.wallccraft.activity.MainActivity;
 import com.t3h.wallccraft.adapter.ListImageAdapter;
 import com.t3h.wallccraft.apialbum.ApiBuilder;
 import com.t3h.wallccraft.model.ListImage;
 import com.t3h.wallccraft.model.ListImageRespone;
-
 import java.util.ArrayList;
-
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import retrofit2.Call;
@@ -40,6 +34,8 @@ public class Fragment60FavoriteRating extends Fragment implements ListImageAdapt
     @BindView(R.id.swipe)
     SwipeRefreshLayout swipeRefreshLayout;
     private int pos;
+    @BindView(R.id.tv_test)
+    TextView tvTest;
 
 
     @Nullable
@@ -82,7 +78,7 @@ public class Fragment60FavoriteRating extends Fragment implements ListImageAdapt
     @Override
     public void onResume() {
         callApi(pos);
-        Log.e("pos",String.valueOf(pos));
+        Log.e("pos", String.valueOf(pos));
         super.onResume();
     }
 
@@ -106,16 +102,21 @@ public class Fragment60FavoriteRating extends Fragment implements ListImageAdapt
     }
 
     public void callApi(int id) {
-        pos=id;
+        pos = id;
         ApiBuilder.getInstance().getAlbumDetail(String.valueOf(id)).enqueue(new Callback<ListImageRespone>() {
             @Override
             public void onResponse(Call<ListImageRespone> call, Response<ListImageRespone> response) {
                 ArrayList<ListImage> data = (ArrayList<ListImage>) response.body().getListImage();
-                if (data != null) {
+                if (data != null && data.size()>0) {
                     adapter.setData(data);
                     listImages.addAll(data);
+                    recyclerView.setVisibility(View.VISIBLE);
+                    tvTest.setVisibility(View.GONE);
                 } else {
-                    Toast.makeText(getContext(), "error", Toast.LENGTH_SHORT).show();
+                    recyclerView.setVisibility(View.GONE);
+                     tvTest.setVisibility(View.VISIBLE);
+
+
                 }
 
             }

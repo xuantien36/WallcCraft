@@ -48,9 +48,10 @@ public class Fragment60Favorite extends Fragment {
         return view;
     }
 
-    public static Fragment60Favorite newInstance() {
+    public static Fragment60Favorite newInstance(int id) {
         Fragment60Favorite myFragment = new Fragment60Favorite();
         Bundle args = new Bundle();
+        args.putInt("idBundle", id);
         myFragment.setArguments(args);
         return myFragment;
     }
@@ -62,19 +63,19 @@ public class Fragment60Favorite extends Fragment {
 
     private void initView() {
         Fragment[] frm = {fragmentNew, fragmentRating, fragmentRandom};
-        wallAdapter = new Page60FavoriteAdapter(getActivity().getSupportFragmentManager(), frm);
+        wallAdapter = new Page60FavoriteAdapter(getChildFragmentManager(), frm);
         viewPager.setAdapter(wallAdapter);
         viewPager.setCurrentItem(0);
-        fragmentNew.callApi(id);
+        fragmentNew.callApi(getArguments().getInt("idBundle"));
         viewPager.setOffscreenPageLimit(3);
 
         tabLayout.addOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
             @Override
             public void onTabSelected(TabLayout.Tab tab) {
                 viewPager.setCurrentItem(tab.getPosition());
-                fragmentNew.callApi(id);
-                fragmentRating.callApi(id);
-                fragmentRandom.callApi(id);
+                fragmentNew.callApi(getArguments().getInt("idBundle"));
+                fragmentRating.callApi(getArguments().getInt("idBundle"));
+                fragmentRandom.callApi(getArguments().getInt("idBundle"));
             }
 
             @Override

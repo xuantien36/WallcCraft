@@ -49,7 +49,7 @@ public class FragmentHitsAll extends Fragment implements ListImageAdapter.ItemCl
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.fragment_hits, container, false);
+        View view = inflater.inflate(R.layout.fragment_all_hits, container, false);
         ButterKnife.bind(this, view);
         data=new ArrayList<>();
 //        callApi(getArguments().getInt("someIntAll"));

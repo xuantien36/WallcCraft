@@ -1,5 +1,4 @@
 package com.t3h.wallccraft.adapter;
-
 import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;

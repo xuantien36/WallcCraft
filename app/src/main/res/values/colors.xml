@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <color name="colorPrimary">#212324</color>
+    <color name="colorPrimary">#0F0F0F</color>
     <color name="colorPrimaryDark">#455A5A</color>
     <color name="colorAccent">#FFC107</color>
     <color name="colorTextheader">#F7F2F2</color>
@@ -17,4 +17,19 @@
     <color name="colorText">#FFC107</color>
     <color name="colorBGDouble">#252323</color>
     <color name="colordata_usage">#797373</color>
+    <color name="coloredtSearch">#BBB6B6</color>
+    <color name="colortextSearch">#F1EBEB</color>
+    <color name="blue_color_picker">#0066FF</color>
+    <color name="brown_color_picker">#AF593E</color>
+    <color name="green_color_picker">#01A368</color>
+    <color name="orange_color_picker">#FF861F</color>
+    <color name="red_color_picker">#ED0A3F</color>
+    <color name="red_orange_color_picker">#FF3F34</color>
+    <color name="sky_blue_color_picker">#76D7EA</color>
+    <color name="violet_color_picker">#8359A3</color>
+    <color name="yellow_color_picker">#FBE870</color>
+    <color name="yellow_green_color_picker">#C5E17A</color>
+    <color name="tool_bg">#151414</color>
+    <color name="black">#000000</color>
+    <color name="white">#FFFFFF</color>
 </resources>

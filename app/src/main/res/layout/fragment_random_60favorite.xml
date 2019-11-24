@@ -43,10 +43,22 @@
                     android:layout_height="match_parent"
                     android:layout_below="@id/im_new"
                     android:nestedScrollingEnabled="false"
-                    app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"/>
+                    android:visibility="gone"
+                    app:spanCount="2"
+                    app:layoutManager="androidx.recyclerview.widget.GridLayoutManager"/>
 
         </LinearLayout>
     </androidx.core.widget.NestedScrollView>
     </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
     </LinearLayout>
+    <TextView
+        android:visibility="gone"
+        android:id="@+id/tv_test"
+        android:textSize="30sp"
+        android:gravity="center"
+        android:layout_centerInParent="true"
+        android:text="No Data"
+        android:textColor="#F3F0F0"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"/>
 </RelativeLayout>

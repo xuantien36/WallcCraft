@@ -23,4 +23,12 @@
     <dimen name="height_progressbar">80dp</dimen>
     <dimen name="tab">100dp</dimen>
     <dimen name="dimen_download">10dp</dimen>
+    <dimen name="dimen_back">15dp</dimen>
+    <dimen name="dimen_close">15dp</dimen>
+    <dimen name="dimen_edt_search">15dp</dimen>
+    <dimen name="dimen_search">230dp</dimen>
+    <dimen name="dimen_setting">5dp</dimen>
+    <dimen name="dimen_close_history">28dp</dimen>
+    <dimen name="dimen_name">15dp</dimen>
+    <dimen name="dimen_save">20dp</dimen>
 </resources>

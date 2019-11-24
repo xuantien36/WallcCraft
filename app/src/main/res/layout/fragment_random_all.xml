@@ -43,7 +43,8 @@
                     android:layout_height="match_parent"
                     android:layout_below="@id/im_new"
                     android:nestedScrollingEnabled="false"
-                    app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+                    app:spanCount="2"
+                    app:layoutManager="androidx.recyclerview.widget.GridLayoutManager"
                     />
         </LinearLayout>
     </androidx.core.widget.NestedScrollView>
