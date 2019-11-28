@@ -9,10 +9,22 @@ import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
 import java.io.Serializable;
+import java.util.List;
+
 @Entity(tableName = "image")
 public class ListImage implements Serializable {
     @NonNull
-    @PrimaryKey
+    @SerializedName("idImage")
+    @PrimaryKey(autoGenerate = true)
+    private int idImage;
+
+    public int getIdImage() {
+        return idImage;
+    }
+    public void setIdImage(int idImage) {
+        this.idImage = idImage;
+    }
+
     @SerializedName("id")
     @Expose
     private int id;
@@ -31,8 +43,11 @@ public class ListImage implements Serializable {
     @SerializedName("album_id")
     @Expose
     private int albumId;
+
     @ColumnInfo(name = "favorite")
     private boolean favorite;
+
+
     @ColumnInfo(name = "history")
     private boolean history;
 
@@ -44,10 +59,12 @@ public class ListImage implements Serializable {
         this.history = history;
     }
 
-    public ListImage(int id, String thumbUrl) {
+    public ListImage(int id, String title, String thumbUrl) {
         this.id = id;
         this.thumbUrl = thumbUrl;
+        this.title = title;
     }
+
     private int icon;
 
     public void setIcon(int icon) {
@@ -114,6 +131,22 @@ public class ListImage implements Serializable {
         this.albumId = albumId;
     }
 
+    @Override
+    public String toString() {
+        return "ListImage{" +
+                "idImage=" + idImage +
+                ", id=" + id +
+                ", title='" + title + '\'' +
+                ", thumbUrl='" + thumbUrl + '\'' +
+                ", premium='" + premium + '\'' +
+                ", urlDownload='" + urlDownload + '\'' +
+                ", albumId=" + albumId +
+                ", favorite=" + favorite +
+                ", history=" + history +
+                ", icon=" + icon +
+                '}';
+    }
 }
+
 
 

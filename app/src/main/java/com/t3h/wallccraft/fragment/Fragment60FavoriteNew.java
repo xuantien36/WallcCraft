@@ -23,6 +23,7 @@ import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
 import com.t3h.wallccraft.R;
 import com.t3h.wallccraft.activity.DetailActivity;
+import com.t3h.wallccraft.activity.ImageActivity;
 import com.t3h.wallccraft.activity.MainActivity;
 import com.t3h.wallccraft.adapter.ListImageAdapter;
 import com.t3h.wallccraft.apialbum.ApiBuilder;
@@ -50,12 +51,13 @@ public class Fragment60FavoriteNew extends Fragment implements ListImageAdapter.
     @BindView(R.id.tv_test)
     TextView tvTest;
     private int pos;
+    public static final String TAG = Fragment60FavoriteNew.class.getSimpleName();
 
 
-    public static Fragment60FavoriteNew newInstance(int id) {
+    public static Fragment60FavoriteNew newInstance(int idNew) {
         Fragment60FavoriteNew myFragment = new Fragment60FavoriteNew();
         Bundle args = new Bundle();
-        args.putInt("someInt", id);
+        args.putInt("idNewFavorite", idNew);
         myFragment.setArguments(args);
         return myFragment;
     }
@@ -81,11 +83,6 @@ public class Fragment60FavoriteNew extends Fragment implements ListImageAdapter.
     }
 
     private void initView() {
-//        if (getArguments() != null) {
-//            int id = getArguments().getInt("someInt");
-////            callApi(id);
-//        }
-
         swipeRefreshLayout.setOnRefreshListener(this);
         swipeRefreshLayout.setColorSchemeResources(R.color.colorTab);
         swipeRefreshLayout.setProgressBackgroundColorSchemeColor(getContext().getResources().getColor(R.color.colorTabSelect));
@@ -100,8 +97,11 @@ public class Fragment60FavoriteNew extends Fragment implements ListImageAdapter.
 
     @Override
     public void onClicked(int position) {
-        Intent intent = new Intent(getContext(), DetailActivity.class);
-        intent.putExtra("data", data.get(position));
+        Intent intent = new Intent(getContext(), ImageActivity.class);
+        intent.putExtra("data", data);
+        intent.putExtra("pos",position);
+        Log.e("posss::",String.valueOf(position));
+        Log.e(TAG, String.valueOf(data.size()));
         Log.e("aaa", data.get(position).toString());
         startActivity(intent);
 
@@ -127,7 +127,9 @@ public class Fragment60FavoriteNew extends Fragment implements ListImageAdapter.
                 if (listImage != null && listImage.size() > 0) {
                     adapter.setData((ArrayList<ListImage>) listImage);
                     progressBar.setVisibility(View.GONE);
+                    data.clear();
                     data.addAll(listImage);
+                    Log.e("data:::", data.toString());
                     recyclerView.setVisibility(View.VISIBLE);
                     tvTest.setVisibility(View.GONE);
                 } else {

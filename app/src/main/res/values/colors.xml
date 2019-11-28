@@ -12,7 +12,7 @@
     <color name="colorBGSplash">#181616</color>
     <color name="colorTab">#F7F5F2</color>
     <color name="colorTabText">#F3EDED</color>
-    <color name="colorBGTab">#F000</color>
+    <color name="colorBGTab">#302B2B</color>
     <color name="colorTabSelect">#FFC107</color>
     <color name="colorText">#FFC107</color>
     <color name="colorBGDouble">#252323</color>
@@ -32,4 +32,9 @@
     <color name="tool_bg">#151414</color>
     <color name="black">#000000</color>
     <color name="white">#FFFFFF</color>
+    <color name="color_sceen_filter">#FFEB3B</color>
+    <color name="color_history">#F000</color>
+    <color name="color_download_detail">#2B2A2A</color>
+    <color name="color_history_empty">#6FADA7A7</color>
+    <color name="color_data_search">#54F0EDED</color>
 </resources>

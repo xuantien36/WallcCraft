@@ -15,15 +15,22 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".activity.EditImageActivity"
+
+        <activity android:name=".activity.ActivitySetting"
             android:theme="@style/AppTheme.NoActionBar"/>
+
+        <activity android:name=".activity.ImageActivity"/>
+        <activity android:name=".activity.ActivityWallpaperCraftInstaller" />
         <activity
-            android:name=".activity.ActivitySetting"
+            android:name=".activity.EditImageActivity"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
             android:name=".activity.SearchActivity"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity android:name=".activity.DetailActivity" />
+        <activity
+            android:name=".activity.ActivitySubscription"
+            android:theme="@style/AppTheme.NoActionBar" />
         <activity
             android:name=".activity.MainActivity"
             android:theme="@style/AppTheme.NoActionBar" />
@@ -37,4 +44,5 @@
             </intent-filter>
         </activity>
     </application>
+
 </manifest>

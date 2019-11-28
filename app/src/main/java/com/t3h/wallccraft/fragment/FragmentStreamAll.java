@@ -2,25 +2,26 @@ package com.t3h.wallccraft.fragment;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.os.Handler;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
+
 import com.t3h.wallccraft.R;
-import com.t3h.wallccraft.activity.DetailActivity;
+import com.t3h.wallccraft.activity.ImageActivity;
 import com.t3h.wallccraft.adapter.ListImageAdapter;
 import com.t3h.wallccraft.apialbum.ApiBuilder;
 import com.t3h.wallccraft.model.ListImage;
 import com.t3h.wallccraft.model.ListImageRespone;
+
 import java.util.ArrayList;
 import java.util.List;
+
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import retrofit2.Call;
@@ -35,7 +36,6 @@ public class FragmentStreamAll extends Fragment implements ListImageAdapter.Item
     @BindView(R.id.swipe)
     SwipeRefreshLayout
             swipeRefreshLayout;
-    private Handler handler;
 
     public static FragmentStreamAll newInstance(int id) {
         FragmentStreamAll myFragment = new FragmentStreamAll();
@@ -45,14 +45,12 @@ public class FragmentStreamAll extends Fragment implements ListImageAdapter.Item
         return myFragment;
     }
 
-
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_stream_all, container, false);
         ButterKnife.bind(this, view);
-        data=new ArrayList<>();
-//        callApi(getArguments().getInt("someIntAll"));
+        data = new ArrayList<>();
         return view;
     }
 
@@ -62,6 +60,7 @@ public class FragmentStreamAll extends Fragment implements ListImageAdapter.Item
         initView();
 
     }
+
     private void initView() {
         adapter = new ListImageAdapter(getContext());
         recyclerView.setAdapter(adapter);
@@ -72,20 +71,21 @@ public class FragmentStreamAll extends Fragment implements ListImageAdapter.Item
 
 
     }
-    public void callApi(int id){
+
+    public void callApi(int id) {
         ApiBuilder.getInstance().getAlbumDetail(String.valueOf(id)).enqueue(new Callback<ListImageRespone>() {
             @Override
             public void onResponse(Call<ListImageRespone> call, Response<ListImageRespone> response) {
                 List<ListImage> listImage = response.body().getListImage();
-                if (listImage!=null){
+                if (listImage != null) {
                     adapter.setData((ArrayList<ListImage>) listImage);
+                    data.clear();
                     data.addAll(listImage);
                 }
             }
 
             @Override
             public void onFailure(Call<ListImageRespone> call, Throwable t) {
-                Toast.makeText(getContext(), "Error", Toast.LENGTH_SHORT).show();
 
             }
         });
@@ -94,8 +94,9 @@ public class FragmentStreamAll extends Fragment implements ListImageAdapter.Item
 
     @Override
     public void onClicked(int position) {
-        Intent intent = new Intent(getContext(), DetailActivity.class);
-        intent.putExtra("data", data.get(position));
+        Intent intent = new Intent(getContext(), ImageActivity.class);
+        intent.putExtra("data", data);
+        intent.putExtra("pos", position);
         startActivity(intent);
 
     }

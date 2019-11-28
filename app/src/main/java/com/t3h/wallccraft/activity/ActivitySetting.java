@@ -4,20 +4,13 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
-import android.view.LayoutInflater;
 import android.view.View;
-import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.Switch;
 import android.widget.TextView;
-
-import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.fragment.app.Fragment;
-
 import com.t3h.wallccraft.R;
-
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
@@ -28,35 +21,27 @@ public class ActivitySetting extends AppCompatActivity {
     Switch switchTwo;
     @BindView(R.id.swich_three)
     Switch switchThree;
-    @BindView(R.id.tv_Data)
-    TextView tvData;
-    @BindView(R.id.tv_Setting)
-    TextView tvSetting;
-    @BindView(R.id.tv_Notification)
-    TextView tvNotification;
     private SharedPreferences sharedPreferences;
-    @BindView(R.id.im_setting)
-    ImageView imageView;
-    @BindView(R.id.title_setting)
-    TextView textView;
-
+    @BindView(R.id.back)
+    ImageView imBack;
+    @BindView(R.id.title)
+    TextView tvTitle;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_setting);
         ButterKnife.bind(this);
-         Intent intent=getIntent();
-         String title=intent.getStringExtra("setting");
-         textView.setText(title);
+        initView();
         sharedPreferences = getSharedPreferences("SaveDataLogin", Context.MODE_PRIVATE);
         switchOne.setChecked(sharedPreferences.getBoolean("checked", false));
         switchTwo.setChecked(sharedPreferences.getBoolean("checked2", false));
         switchThree.setChecked(sharedPreferences.getBoolean("checked3", false));
-        initView();
+        Intent intent=getIntent();
+        String title=intent.getStringExtra("setting");
+        tvTitle.setText(title);
 
     }
-
     private void initView() {
         switchOne.setOnCheckedChangeListener((compoundButton, b) -> {
             if (b) {
@@ -94,9 +79,10 @@ public class ActivitySetting extends AppCompatActivity {
                 editor.commit();
             }
         });
-        imageView.setOnClickListener(view -> finish());
+        imBack.setOnClickListener(view -> finish());
     }
 }
+
 
 
 

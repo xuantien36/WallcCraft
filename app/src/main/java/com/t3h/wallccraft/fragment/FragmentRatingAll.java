@@ -13,6 +13,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 import com.t3h.wallccraft.R;
 import com.t3h.wallccraft.activity.DetailActivity;
+import com.t3h.wallccraft.activity.ImageActivity;
 import com.t3h.wallccraft.adapter.ListImageAdapter;
 import com.t3h.wallccraft.apialbum.ApiBuilder;
 import com.t3h.wallccraft.model.ListImage;
@@ -46,7 +47,6 @@ public class FragmentRatingAll extends Fragment implements ListImageAdapter.Item
         View view=inflater.inflate(R.layout.fragment_new_all,container,false);
         ButterKnife.bind(this,view);
         data=new ArrayList<>();
-//        callApi(getArguments().getInt("someIntAll"));
         return view;
     }
 
@@ -75,13 +75,13 @@ public class FragmentRatingAll extends Fragment implements ListImageAdapter.Item
                 List<ListImage> listImage = response.body().getListImage();
                 if (listImage!=null){
                     adapter.setData((ArrayList<ListImage>) listImage);
+                    data.clear();
                     data.addAll(listImage);
                 }
             }
 
             @Override
             public void onFailure(Call<ListImageRespone> call, Throwable t) {
-                Toast.makeText(getContext(), "Error", Toast.LENGTH_SHORT).show();
 
             }
         });
@@ -89,8 +89,9 @@ public class FragmentRatingAll extends Fragment implements ListImageAdapter.Item
 
     @Override
     public void onClicked(int position) {
-        Intent intent=new Intent(getContext(), DetailActivity.class);
-        intent.putExtra("data",data.get(position));
+        Intent intent=new Intent(getContext(), ImageActivity.class);
+        intent.putExtra("data",data);
+        intent.putExtra("pos",position);
         startActivity(intent);
 
     }

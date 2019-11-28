@@ -60,7 +60,7 @@ public class EditImageActivity extends BaseActivity implements
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         makeFullScreen();
-        setContentView(R.layout.activity_edit_image);
+        setContentView(R.layout.activity_filter_image);
         initViews();
 
         LinearLayoutManager llmFilters = new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false);
@@ -68,8 +68,8 @@ public class EditImageActivity extends BaseActivity implements
         mRvFilters.setAdapter(mFilterViewAdapter);
 
         mPhotoEditor = new PhotoEditor.Builder(this, mPhotoEditorView)
-                .setPinchTextScalable(true) // set flag to make text scalable when pinch
-                .build(); // build photo editor sdk
+                .setPinchTextScalable(true)
+                .build();
     }
 
     private void initViews() {
@@ -85,10 +85,10 @@ public class EditImageActivity extends BaseActivity implements
         imgClose = findViewById(R.id.imgClose);
         imgClose.setOnClickListener(this);
         String url = getIntent().getStringExtra("filter");
-
         Glide.with(this)
                 .load(url)
                 .error(R.drawable.ic_launcher_background).into(mPhotoEditorView.getSource());
+        Log.e(TAG,url);
 
     }
 
@@ -101,9 +101,16 @@ public class EditImageActivity extends BaseActivity implements
                 break;
 
             case R.id.imgClose:
-                onBackPressed();
+               showDialog();
                 break;
         }
+    }
+    public void showDialog(){
+        AlertDialog.Builder builder=new AlertDialog.Builder(this);
+        builder.setMessage("Change you made could not be saved.Do you want to lave anyway?");
+        builder.setNegativeButton("HỦY", (dialogInterface, i) -> dialogInterface.dismiss());
+        builder.setPositiveButton("LEAVE", (dialogInterface, i) -> finish());
+       builder.show();
     }
 
     @SuppressLint("MissingPermission")
@@ -238,7 +245,7 @@ public class EditImageActivity extends BaseActivity implements
     @Override
     public void onBackPressed() {
         if (!mPhotoEditor.isCacheEmpty()) {
-            showSaveDialog();
+           showSaveDialog();
         } else {
             super.onBackPressed();
         }

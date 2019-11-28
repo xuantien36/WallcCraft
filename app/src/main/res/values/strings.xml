@@ -20,7 +20,9 @@
     <string name="menu_gallery">Gallery</string>
     <string name="tv_dơmload">Download</string>
     <string name="tv_set">Set</string>
-
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="tv_empty_search">unable to find\nanything on your\nrequest</string>
+    <string name="tv_data_empty">You list of history is\n empty</string>
+    <string name="tv_favorite_empty">you have not\n added anything</string>
 </resources>

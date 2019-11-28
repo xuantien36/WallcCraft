@@ -4,7 +4,6 @@ import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -55,21 +54,14 @@ public class ListImageHistoryAdapter extends RecyclerView.Adapter<ListImageHisto
         ListImage name = data.get(position);
         holder.bindData(name);
         holder.imageView.setOnClickListener(view -> {
-            if (position < data.size() - 1) {
-                data.remove(position);
-                AppDatabase.getInstance(context).getImagesDao().delete(data.get(position));
-                notifyItemRemoved(position);
-            }
-
+                AppDatabase.getInstance(context).getImagesDao().deleteHistory(data.remove(position));
+                notifyDataSetChanged();
         });
 
+
+
         if (listener != null) {
-            holder.itemView.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View view) {
-                    listener.onClicked(position);
-                }
-            });
+            holder.itemView.setOnClickListener(view -> listener.onClicked(position));
 
             holder.itemView.setOnLongClickListener(view -> {
                 listener.onLongClicked(position);
@@ -77,8 +69,8 @@ public class ListImageHistoryAdapter extends RecyclerView.Adapter<ListImageHisto
             });
         }
 
-    }
 
+    }
     @Override
     public int getItemCount() {
         return data == null ? 0 : data.size();
@@ -92,6 +84,8 @@ public class ListImageHistoryAdapter extends RecyclerView.Adapter<ListImageHisto
         TextView textView;
         @BindView(R.id.im_close_history)
         AppCompatImageView imageView;
+        @BindView(R.id.tv_history)
+        TextView tvHistory;
 
 
         public ListImageHolder(@NonNull View itemView) {

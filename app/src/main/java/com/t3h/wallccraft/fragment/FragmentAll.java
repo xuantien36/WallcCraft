@@ -1,29 +1,21 @@
 package com.t3h.wallccraft.fragment;
 
-import android.app.ProgressDialog;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
-import android.view.Menu;
-import android.view.MenuInflater;
 import android.view.View;
 import android.view.ViewGroup;
-
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
-import androidx.appcompat.widget.SearchView;
 import androidx.fragment.app.Fragment;
 import androidx.viewpager.widget.ViewPager;
-
 import com.google.android.material.tabs.TabLayout;
 import com.t3h.wallccraft.EvenPost;
 import com.t3h.wallccraft.R;
 import com.t3h.wallccraft.adapter.PageAllAdapter;
-
 import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
 import org.greenrobot.eventbus.ThreadMode;
-
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
@@ -41,7 +33,7 @@ public class FragmentAll extends Fragment implements TabLayout.BaseOnTabSelected
     ViewPager viewPager;
     int id;
     int position = 0;
-    String name;
+
 
     @Nullable
     @Override
@@ -113,6 +105,12 @@ public class FragmentAll extends Fragment implements TabLayout.BaseOnTabSelected
     public void onDestroyView() {
         super.onDestroyView();
         EventBus.getDefault().unregister(this);
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        Log.e("All","alll");
     }
 }
 

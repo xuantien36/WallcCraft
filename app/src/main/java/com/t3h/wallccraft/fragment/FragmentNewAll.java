@@ -1,27 +1,19 @@
 package com.t3h.wallccraft.fragment;
 
-import android.app.Activity;
-import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
-import android.view.Menu;
-import android.view.MenuInflater;
-import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
-import android.view.inputmethod.InputMethodManager;
 import android.widget.Toast;
-
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
-import androidx.appcompat.widget.SearchView;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
-
 import com.t3h.wallccraft.R;
 import com.t3h.wallccraft.activity.DetailActivity;
+import com.t3h.wallccraft.activity.ImageActivity;
 import com.t3h.wallccraft.activity.MainActivity;
 import com.t3h.wallccraft.adapter.ListImageAdapter;
 import com.t3h.wallccraft.apialbum.ApiBuilder;
@@ -45,6 +37,7 @@ public class FragmentNewAll extends Fragment implements ListImageAdapter.ItemCli
     RecyclerView recyclerView;
     @BindView(R.id.swipe)
     SwipeRefreshLayout swipeRefreshLayout;
+    private int pos;
 
 
     public static FragmentNewAll newInstance() {
@@ -89,6 +82,7 @@ public class FragmentNewAll extends Fragment implements ListImageAdapter.ItemCli
                 if (listImage != null) {
                     if (adapter != null) {
                         adapter.setData((ArrayList<ListImage>) listImage);
+                        data.clear();
                         data.addAll(listImage);
                     }
 
@@ -105,13 +99,16 @@ public class FragmentNewAll extends Fragment implements ListImageAdapter.ItemCli
 
     @Override
     public void onClicked(int position) {
-        Intent intent = new Intent(getContext(), DetailActivity.class);
-        intent.putExtra("data", data.get(position));
+        Intent intent = new Intent(getContext(), ImageActivity.class);
+        intent.putExtra("data", data);
+        intent.putExtra("pos",position);
         startActivity(intent);
     }
 
     @Override
     public void onLongClicked(int position) {
+        pos=position;
+
 
     }
 
@@ -123,7 +120,6 @@ public class FragmentNewAll extends Fragment implements ListImageAdapter.ItemCli
 
     @Override
     public void onQuerySearch(String text) {
-
         ApiBuilder.getInstance().getAlbumSearch(text).enqueue(new Callback<ListAlbumRespone>() {
 
             @Override
@@ -146,6 +142,11 @@ public class FragmentNewAll extends Fragment implements ListImageAdapter.ItemCli
 
             }
         });
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
     }
 }
 

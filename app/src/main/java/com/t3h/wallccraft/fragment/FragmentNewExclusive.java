@@ -13,6 +13,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 import com.t3h.wallccraft.R;
 import com.t3h.wallccraft.activity.DetailActivity;
+import com.t3h.wallccraft.activity.ImageActivity;
 import com.t3h.wallccraft.adapter.ListImageAdapter;
 import com.t3h.wallccraft.model.ListImage;
 import java.util.ArrayList;
@@ -59,18 +60,18 @@ public class FragmentNewExclusive extends Fragment implements ListImageAdapter.I
 
     private void initData() {
         arr = new ArrayList<>();
-        arr.add(new ListImage(1,"https://tse3.mm.bing.net/th?id=OIP.RnL-xNIsV2KLX-vY_ZREggHaNK&pid=Api&P=0&w=300&h=300"));
-        arr.add(new ListImage(2,"http://2.bp.blogspot.com/-5zjV7J3Nckc/UjrAFFOwT0I/AAAAAAAAFk0/_LEcRCf9QVA/s1600/anh+phong+canh+thien+nhien+tuyet+dep+(1).jpg"));
-        arr.add(new ListImage(3,"https://tse2.mm.bing.net/th?id=OIP.kd5lRp1BejIDDeFJKBESgwHaLG&pid=Api&P=0&w=300&h=300"));
-        arr.add(new ListImage(4,"https://tse3.mm.bing.net/th?id=OIP.RnL-xNIsV2KLX-vY_ZREggHaNK&pid=Api&P=0&w=300&h=300"));
-        arr.add(new ListImage(5,"http://2.bp.blogspot.com/-5zjV7J3Nckc/UjrAFFOwT0I/AAAAAAAAFk0/_LEcRCf9QVA/s1600/anh+phong+canh+thien+nhien+tuyet+dep+(1).jpg"));
-        arr.add(new ListImage(6,"https://tse2.mm.bing.net/th?id=OIP.kd5lRp1BejIDDeFJKBESgwHaLG&pid=Api&P=0&w=300&h=300"));
-        arr.add(new ListImage(7,"http://2.bp.blogspot.com/-5zjV7J3Nckc/UjrAFFOwT0I/AAAAAAAAFk0/_LEcRCf9QVA/s1600/anh+phong+canh+thien+nhien+tuyet+dep+(1).jpg"));
-        arr.add(new ListImage(8,"https://tse2.mm.bing.net/th?id=OIP.kd5lRp1BejIDDeFJKBESgwHaLG&pid=Api&P=0&w=300&h=300"));
-        arr.add(new ListImage(9,"http://2.bp.blogspot.com/-5zjV7J3Nckc/UjrAFFOwT0I/AAAAAAAAFk0/_LEcRCf9QVA/s1600/anh+phong+canh+thien+nhien+tuyet+dep+(1).jpg"));
-        arr.add(new ListImage(10,"https://tse2.mm.bing.net/th?id=OIP.kd5lRp1BejIDDeFJKBESgwHaLG&pid=Api&P=0&w=300&h=300"));
-        arr.add(new ListImage(11,"http://2.bp.blogspot.com/-5zjV7J3Nckc/UjrAFFOwT0I/AAAAAAAAFk0/_LEcRCf9QVA/s1600/anh+phong+canh+thien+nhien+tuyet+dep+(1).jpg"));
-        arr.add(new ListImage(12,"https://tse3.mm.bing.net/th?id=OIP.RnL-xNIsV2KLX-vY_ZREggHaNK&pid=Api&P=0&w=300&h=300"));
+        arr.add(new ListImage(1,"Anh 1","https://tse3.mm.bing.net/th?id=OIP.RnL-xNIsV2KLX-vY_ZREggHaNK&pid=Api&P=0&w=300&h=300"));
+        arr.add(new ListImage(2,"Anh 2","http://2.bp.blogspot.com/-5zjV7J3Nckc/UjrAFFOwT0I/AAAAAAAAFk0/_LEcRCf9QVA/s1600/anh+phong+canh+thien+nhien+tuyet+dep+(1).jpg"));
+        arr.add(new ListImage(3,"Anh 3","https://tse2.mm.bing.net/th?id=OIP.kd5lRp1BejIDDeFJKBESgwHaLG&pid=Api&P=0&w=300&h=300"));
+        arr.add(new ListImage(4,"Anh 4","https://tse3.mm.bing.net/th?id=OIP.RnL-xNIsV2KLX-vY_ZREggHaNK&pid=Api&P=0&w=300&h=300"));
+        arr.add(new ListImage(5,"Anh 5","http://2.bp.blogspot.com/-5zjV7J3Nckc/UjrAFFOwT0I/AAAAAAAAFk0/_LEcRCf9QVA/s1600/anh+phong+canh+thien+nhien+tuyet+dep+(1).jpg"));
+        arr.add(new ListImage(6,"Anh 6","https://tse2.mm.bing.net/th?id=OIP.kd5lRp1BejIDDeFJKBESgwHaLG&pid=Api&P=0&w=300&h=300"));
+        arr.add(new ListImage(7,"Anh 7","http://2.bp.blogspot.com/-5zjV7J3Nckc/UjrAFFOwT0I/AAAAAAAAFk0/_LEcRCf9QVA/s1600/anh+phong+canh+thien+nhien+tuyet+dep+(1).jpg"));
+        arr.add(new ListImage(8,"Anh 8","https://tse2.mm.bing.net/th?id=OIP.kd5lRp1BejIDDeFJKBESgwHaLG&pid=Api&P=0&w=300&h=300"));
+        arr.add(new ListImage(9,"Anh 9","http://2.bp.blogspot.com/-5zjV7J3Nckc/UjrAFFOwT0I/AAAAAAAAFk0/_LEcRCf9QVA/s1600/anh+phong+canh+thien+nhien+tuyet+dep+(1).jpg"));
+        arr.add(new ListImage(10,"Anh 10","https://tse2.mm.bing.net/th?id=OIP.kd5lRp1BejIDDeFJKBESgwHaLG&pid=Api&P=0&w=300&h=300"));
+        arr.add(new ListImage(11,"Anh 11","http://2.bp.blogspot.com/-5zjV7J3Nckc/UjrAFFOwT0I/AAAAAAAAFk0/_LEcRCf9QVA/s1600/anh+phong+canh+thien+nhien+tuyet+dep+(1).jpg"));
+        arr.add(new ListImage(12,"Anh 12","https://tse3.mm.bing.net/th?id=OIP.RnL-xNIsV2KLX-vY_ZREggHaNK&pid=Api&P=0&w=300&h=300"));
         adapter.setData(arr);
         swipeRefreshLayout.setRefreshing(false);
     }
@@ -86,9 +87,9 @@ public class FragmentNewExclusive extends Fragment implements ListImageAdapter.I
     }
     @Override
     public void onClicked(int position) {
-//        getActivity().getSupportFragmentManager().beginTransaction().replace(R.id.frame_main,new FragmentSubscription()).commit();
-        Intent intent = new Intent(getContext(), DetailActivity.class);
-        intent.putExtra("data", arr.get(position));
+        Intent intent = new Intent(getContext(), ImageActivity.class);
+        intent.putExtra("data", arr);
+        intent.putExtra("pos",position);
         startActivity(intent);
     }
     @Override

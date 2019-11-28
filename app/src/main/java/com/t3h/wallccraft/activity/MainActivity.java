@@ -8,10 +8,11 @@ import androidx.appcompat.widget.Toolbar;
 import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.fragment.app.Fragment;
-import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.app.Activity;
+import android.content.Context;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
@@ -19,13 +20,13 @@ import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.android.material.navigation.NavigationView;
-import com.t3h.wallccraft.EvenPost;
 import com.t3h.wallccraft.R;
 import com.t3h.wallccraft.adapter.AlbumAdapter;
 import com.t3h.wallccraft.apialbum.ApiBuilder;
@@ -35,11 +36,8 @@ import com.t3h.wallccraft.fragment.FragmentDoubleWallPaper;
 import com.t3h.wallccraft.fragment.FragmentExclusive;
 import com.t3h.wallccraft.fragment.FragmentFavorite;
 import com.t3h.wallccraft.fragment.FragmentHistory;
-import com.t3h.wallccraft.fragment.FragmentSubscription;
 import com.t3h.wallccraft.model.Album;
 import com.t3h.wallccraft.model.AlbumRespone;
-
-import org.greenrobot.eventbus.EventBus;
 
 import java.util.ArrayList;
 
@@ -69,6 +67,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     @BindView(R.id.title)
     TextView tvTitle;
     private FragmentTransaction fragmentTransaction;
+    private int pos;
 
 
     private static CallBackSearch callBackSearch;
@@ -86,8 +85,6 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         initView();
         initData();
         replaceFragment(FragmentAll.newInstance(1), "");
-//        EventBus.getDefault().postSticky(new EvenPost(1));
-
         ApiBuilder.getInstance().getAlbum().enqueue(new Callback<AlbumRespone>() {
             @Override
             public void onResponse(Call<AlbumRespone> call, Response<AlbumRespone> response) {
@@ -138,10 +135,11 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         imageView.setOnClickListener(view -> {
             Intent intent = new Intent(MainActivity.this, SearchActivity.class);
             startActivity(intent);
+
+
         });
 
     }
-
     public void replaceFragment(Fragment fragment, String tag) {
         try {
             fragmentTransaction = getSupportFragmentManager().beginTransaction();
@@ -169,7 +167,6 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
     @Override
     public boolean onQueryTextSubmit(String query) {
-//        callBackSearch.onQuerySearch(query);
         return true;
     }
 
@@ -180,29 +177,32 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
     @Override
     public void onClicked(int position) {
-        tvTitle.setText(arr.get(position).getTitle());
         drawerLayout.closeDrawer(GravityCompat.START);
         if (position >= 0 && position <= 6) {
             switch (position) {
                 case 0:
                     replaceFragment(new FragmentExclusive(), "");
+                    tvTitle.setText(arr.get(position).getTitle());
                     break;
 
                 case 1:
                     replaceFragment(new FragmentDoubleWallPaper(), "");
+                    tvTitle.setText(arr.get(position).getTitle());
                     break;
 
                 case 2:
-
                     replaceFragment(new FragmentFavorite(), "");
-                    imageView.setVisibility(View.GONE);
+                    tvTitle.setText(arr.get(position).getTitle());
                     break;
 
                 case 3:
                     replaceFragment(new FragmentHistory(), "");
+                    tvTitle.setText(arr.get(position).getTitle());
                     break;
                 case 4:
-                    replaceFragment(new FragmentSubscription(), "");
+                    Intent intent = new Intent(this, ActivitySubscription.class);
+                    intent.putExtra("subscription", arr.get(position).getTitle());
+                    startActivity(intent);
                     break;
 
                 case 5:
@@ -210,27 +210,28 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                     setting.putExtra("setting", arr.get(position).getTitle());
                     startActivity(setting);
                     break;
-                case 6:
-                    Intent intent = new Intent(Intent.ACTION_VIEW).
-                            setData(Uri.parse("http://www.instagram.com"));
-                    startActivity(intent);
-                    break;
 
+                case 6:
+                    Intent stagram = new Intent(Intent.ACTION_VIEW).
+                            setData(Uri.parse("http://www.instagram.com"));
+                    startActivity(stagram);
+                    break;
             }
 
         } else if (arr.get(position).getId() == 1) {
             replaceFragment(FragmentAll.newInstance(arr.get(position).getId()), "");
-//            EventBus.getDefault().postSticky(new EvenPost(arr.get(position).getId()));
+            tvTitle.setText(arr.get(position).getTitle());
         } else {
 
             replaceFragment(Fragment60Favorite.newInstance(arr.get(position).getId()), "");
-//            EventBus.getDefault().postSticky(new EvenPost(arr.get(position).getId()));
+            tvTitle.setText(arr.get(position).getTitle());
         }
 
     }
 
     @Override
     public void onLongClicked(int position) {
+
     }
 
     public interface CallBackSearch {
@@ -239,8 +240,8 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
     @Override
     public void onBackPressed() {
-        finish();
         super.onBackPressed();
+        finish();
     }
 
     @Override

@@ -5,7 +5,7 @@ import androidx.room.Room;
 import androidx.room.RoomDatabase;
 import com.t3h.wallccraft.model.ListImage;
 
-@Database(entities = ListImage.class, version = 8)
+@Database(entities = ListImage.class, version = 9)
 public abstract class AppDatabase extends RoomDatabase {
     private static AppDatabase appDatabase;
 
@@ -14,7 +14,7 @@ public abstract class AppDatabase extends RoomDatabase {
             appDatabase = Room.databaseBuilder(
                     context,
                     AppDatabase.class,
-                    "news-database"
+                    "favorite-database"
             )
                     .allowMainThreadQueries()
                     .build();

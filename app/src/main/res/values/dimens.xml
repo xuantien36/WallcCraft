@@ -8,12 +8,12 @@
     <dimen name="dimenTop">20dp</dimen>
     <dimen name="tv_new">20dp</dimen>
     <dimen name="maginItem">2dp</dimen>
-    <dimen name="dimen_clock">10dp</dimen>
+    <dimen name="dimen_clock">27dp</dimen>
     <dimen name="dimen_top_clock">200dp</dimen>
     <dimen name="maginItem_double">20dp</dimen>
     <dimen name="magin_10">10dp</dimen>
-    <dimen name="dimen_left">14dp</dimen>
-    <dimen name="dimen_layout">180dp</dimen>
+    <dimen name="dimen_left">22dp</dimen>
+    <dimen name="dimen_layout">200dp</dimen>
     <dimen name="dimen_data_usage">12dp</dimen>
     <dimen name="dimen_tv_download">12dp</dimen>
     <dimen name="dimen_right">10dp</dimen>
@@ -24,11 +24,14 @@
     <dimen name="tab">100dp</dimen>
     <dimen name="dimen_download">10dp</dimen>
     <dimen name="dimen_back">15dp</dimen>
-    <dimen name="dimen_close">15dp</dimen>
+    <dimen name="dimen_close">20dp</dimen>
     <dimen name="dimen_edt_search">15dp</dimen>
     <dimen name="dimen_search">230dp</dimen>
     <dimen name="dimen_setting">5dp</dimen>
     <dimen name="dimen_close_history">28dp</dimen>
     <dimen name="dimen_name">15dp</dimen>
     <dimen name="dimen_save">20dp</dimen>
+    <dimen name="dimen_lock_home">28dp</dimen>
+    <dimen name="dimen_home">27dp</dimen>
+    <dimen name="dimen_check">20dp</dimen>
 </resources>

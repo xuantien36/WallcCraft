@@ -2,7 +2,7 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:orientation="vertical"
-    android:background="@color/colorBGTab"
+
     android:layout_width="match_parent"
     android:layout_height="match_parent">
     <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
@@ -16,6 +16,31 @@
         app:layoutManager="androidx.recyclerview.widget.GridLayoutManager"
         android:layout_height="match_parent"/>
     </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
+
+    <LinearLayout
+        android:layout_centerInParent="true"
+        android:gravity="center"
+        android:id="@+id/ln_favorite_empty"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+       android:visibility="gone"
+        android:orientation="vertical">
+
+        <ImageView
+            android:layout_width="120dp"
+            android:layout_height="120dp"
+            app:srcCompat="@drawable/ic_favorite_black_24dp" />
+
+        <TextView
+            android:gravity="center"
+            android:id="@+id/tv_history"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/tv_favorite_empty"
+            android:textColor="@color/color_history_empty"
+            android:textSize="30sp"/>
+
+    </LinearLayout>
     <ProgressBar
         android:id="@+id/progressBarFavorite"
         android:layout_width="wrap_content"

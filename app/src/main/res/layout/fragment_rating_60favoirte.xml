@@ -57,10 +57,10 @@
     <TextView
         android:visibility="gone"
         android:id="@+id/tv_test"
-        android:textSize="30sp"
+        android:textSize="35sp"
         android:gravity="center"
         android:layout_centerInParent="true"
-        android:text="No Data"
+        android:text="Empty"
         android:textColor="#F3F0F0"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"/>

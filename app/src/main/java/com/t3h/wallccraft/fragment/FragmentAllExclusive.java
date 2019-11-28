@@ -15,6 +15,7 @@ import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
 import com.t3h.wallccraft.R;
 import com.t3h.wallccraft.activity.DetailActivity;
+import com.t3h.wallccraft.activity.ImageActivity;
 import com.t3h.wallccraft.adapter.ListImageAdapter;
 import com.t3h.wallccraft.apialbum.ApiBuilder;
 import com.t3h.wallccraft.model.ListImage;
@@ -52,6 +53,7 @@ public class FragmentAllExclusive extends Fragment implements ListImageAdapter.I
                 if (listImage != null) {
                     if (adapter != null) {
                         adapter.setData((ArrayList<ListImage>) listImage);
+                        data.clear();
                         data.addAll(listImage);
                     }
 
@@ -60,7 +62,6 @@ public class FragmentAllExclusive extends Fragment implements ListImageAdapter.I
 
             @Override
             public void onFailure(Call<ListImageRespone> call, Throwable t) {
-                Toast.makeText(getContext(), "Error", Toast.LENGTH_SHORT).show();
 
             }
         });
@@ -97,8 +98,8 @@ public class FragmentAllExclusive extends Fragment implements ListImageAdapter.I
 
     @Override
     public void onClicked(int position) {
-        Intent intent = new Intent(getContext(), DetailActivity.class);
-        intent.putExtra("data", data.get(position));
+        Intent intent = new Intent(getContext(), ImageActivity.class);
+        intent.putExtra("data", data);
         startActivity(intent);
 
     }

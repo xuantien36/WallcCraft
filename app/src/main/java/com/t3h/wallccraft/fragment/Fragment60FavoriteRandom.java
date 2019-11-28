@@ -16,6 +16,7 @@ import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
 import com.t3h.wallccraft.R;
 import com.t3h.wallccraft.activity.DetailActivity;
+import com.t3h.wallccraft.activity.ImageActivity;
 import com.t3h.wallccraft.adapter.ListImageAdapter;
 import com.t3h.wallccraft.apialbum.ApiBuilder;
 import com.t3h.wallccraft.model.ListImage;
@@ -32,7 +33,7 @@ import retrofit2.Callback;
 import retrofit2.Response;
 
 public class Fragment60FavoriteRandom extends Fragment implements ListImageAdapter.ItemClickListener, SwipeRefreshLayout.OnRefreshListener {
-    private ArrayList<ListImage> listImages;
+    private ArrayList<ListImage> randomList;
     private ListImageAdapter adapter;
     @BindView(R.id.lv_im_random_60Favorite)
     RecyclerView recyclerView;
@@ -48,7 +49,7 @@ public class Fragment60FavoriteRandom extends Fragment implements ListImageAdapt
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_random_60favorite, container, false);
         ButterKnife.bind(this, view);
-        listImages = new ArrayList<>();
+        randomList = new ArrayList<>();
         adapter = new ListImageAdapter(getContext());
         recyclerView.setAdapter(adapter);
         adapter.setOnListener(this);
@@ -56,9 +57,10 @@ public class Fragment60FavoriteRandom extends Fragment implements ListImageAdapt
         return view;
     }
 
-    public static Fragment60FavoriteRandom newInstance() {
+    public static Fragment60FavoriteRandom newInstance(int idRandom) {
         Fragment60FavoriteRandom myFragment = new Fragment60FavoriteRandom();
         Bundle args = new Bundle();
+        args.putInt("idRandomFavorite", idRandom);
         myFragment.setArguments(args);
         return myFragment;
     }
@@ -85,8 +87,8 @@ public class Fragment60FavoriteRandom extends Fragment implements ListImageAdapt
 
     @Override
     public void onClicked(int position) {
-        Intent intent = new Intent(getContext(), DetailActivity.class);
-        intent.putExtra("data", listImages.get(position));
+        Intent intent = new Intent(getContext(), ImageActivity.class);
+        intent.putExtra("data",randomList);
         startActivity(intent);
 
     }
@@ -104,7 +106,7 @@ public class Fragment60FavoriteRandom extends Fragment implements ListImageAdapt
     }
 
     public void shuffle() {
-        Collections.shuffle(listImages, new Random(System.currentTimeMillis()));
+        Collections.shuffle(randomList, new Random(System.currentTimeMillis()));
         adapter = new ListImageAdapter(getContext());
         recyclerView.setAdapter(adapter);
 
@@ -118,7 +120,8 @@ public class Fragment60FavoriteRandom extends Fragment implements ListImageAdapt
                 ArrayList<ListImage> data = (ArrayList<ListImage>) response.body().getListImage();
                 if (data != null &&data.size()>0) {
                     adapter.setData(data);
-                    listImages.addAll(data);
+                    randomList.clear();
+                    randomList.addAll(data);
                     recyclerView.setVisibility(View.VISIBLE);
                     tvTest.setVisibility(View.GONE);
                 } else {

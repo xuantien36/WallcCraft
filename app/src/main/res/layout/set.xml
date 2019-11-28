@@ -10,6 +10,7 @@
         android:layout_width="match_parent"
         android:layout_height="300dp">
         <TextView
+            android:textStyle="italic"
             android:layout_margin="@dimen/magin_10"
             android:textSize="25sp"
             android:text="@string/tv_set"
@@ -23,7 +24,7 @@
             android:layout_height="wrap_content">
             <ImageView
                 android:layout_gravity="center"
-                android:src="@drawable/portrait"
+                android:src="@drawable/crop_portrait"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content" />
             <LinearLayout
@@ -55,7 +56,7 @@
             android:layout_height="wrap_content">
             <ImageView
                 android:layout_gravity="center"
-                android:src="@drawable/crop"
+                android:src="@drawable/crop_landscape"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content" />
             <LinearLayout
@@ -86,7 +87,7 @@
             android:layout_height="wrap_content">
             <ImageView
                 android:layout_gravity="center"
-                android:src="@drawable/image_orinal"
+                android:src="@drawable/original"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content" />
             <LinearLayout

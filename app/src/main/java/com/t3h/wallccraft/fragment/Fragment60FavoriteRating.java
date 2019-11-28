@@ -13,6 +13,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 import com.t3h.wallccraft.R;
 import com.t3h.wallccraft.activity.DetailActivity;
+import com.t3h.wallccraft.activity.ImageActivity;
 import com.t3h.wallccraft.adapter.ListImageAdapter;
 import com.t3h.wallccraft.apialbum.ApiBuilder;
 import com.t3h.wallccraft.model.ListImage;
@@ -27,7 +28,7 @@ import retrofit2.Callback;
 import retrofit2.Response;
 
 public class Fragment60FavoriteRating extends Fragment implements ListImageAdapter.ItemClickListener, SwipeRefreshLayout.OnRefreshListener {
-    private ArrayList<ListImage> listImages;
+    private ArrayList<ListImage> ratingList;
     private ListImageAdapter adapter;
     @BindView(R.id.lv_im_rating_60Favorite)
     RecyclerView recyclerView;
@@ -43,7 +44,7 @@ public class Fragment60FavoriteRating extends Fragment implements ListImageAdapt
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_rating_60favoirte, container, false);
         ButterKnife.bind(this, view);
-        listImages = new ArrayList<>();
+        ratingList = new ArrayList<>();
         adapter = new ListImageAdapter(getContext());
         recyclerView.setAdapter(adapter);
         adapter.setOnListener(this);
@@ -51,10 +52,10 @@ public class Fragment60FavoriteRating extends Fragment implements ListImageAdapt
         return view;
     }
 
-    public static Fragment60FavoriteRating newInstance(int id) {
+    public static Fragment60FavoriteRating newInstance(int idRating) {
         Fragment60FavoriteRating myFragment = new Fragment60FavoriteRating();
         Bundle args = new Bundle();
-        args.putInt("someInt", id);
+        args.putInt("idRatingFavorite", idRating);
         myFragment.setArguments(args);
         return myFragment;
     }
@@ -74,7 +75,6 @@ public class Fragment60FavoriteRating extends Fragment implements ListImageAdapt
 
 
     }
-
     @Override
     public void onResume() {
         callApi(pos);
@@ -84,12 +84,11 @@ public class Fragment60FavoriteRating extends Fragment implements ListImageAdapt
 
     @Override
     public void onClicked(int position) {
-        Intent intent = new Intent(getContext(), DetailActivity.class);
-        intent.putExtra("data", listImages.get(position));
+        Intent intent = new Intent(getContext(), ImageActivity.class);
+        intent.putExtra("data", ratingList);
         startActivity(intent);
 
     }
-
     @Override
     public void onLongClicked(int position) {
 
@@ -100,7 +99,6 @@ public class Fragment60FavoriteRating extends Fragment implements ListImageAdapt
         swipeRefreshLayout.setRefreshing(false);
 
     }
-
     public void callApi(int id) {
         pos = id;
         ApiBuilder.getInstance().getAlbumDetail(String.valueOf(id)).enqueue(new Callback<ListImageRespone>() {
@@ -109,18 +107,15 @@ public class Fragment60FavoriteRating extends Fragment implements ListImageAdapt
                 ArrayList<ListImage> data = (ArrayList<ListImage>) response.body().getListImage();
                 if (data != null && data.size()>0) {
                     adapter.setData(data);
-                    listImages.addAll(data);
+                    ratingList.clear();
+                    ratingList.addAll(data);
                     recyclerView.setVisibility(View.VISIBLE);
                     tvTest.setVisibility(View.GONE);
                 } else {
                     recyclerView.setVisibility(View.GONE);
                      tvTest.setVisibility(View.VISIBLE);
-
-
                 }
-
             }
-
             @Override
             public void onFailure(Call<ListImageRespone> call, Throwable t) {
 

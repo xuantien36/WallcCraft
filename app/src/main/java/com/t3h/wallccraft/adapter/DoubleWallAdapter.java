@@ -1,13 +1,18 @@
 package com.t3h.wallccraft.adapter;
+import android.app.Activity;
 import android.content.Context;
+import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 import com.bumptech.glide.Glide;
 import com.t3h.wallccraft.R;
+import com.t3h.wallccraft.activity.ActivitySubscription;
+import com.t3h.wallccraft.fragment.FragmentNewDoubleWallpaper;
 import com.t3h.wallccraft.model.Phone;
 import java.util.ArrayList;
 import butterknife.BindView;
@@ -17,13 +22,16 @@ public class DoubleWallAdapter extends RecyclerView.Adapter<DoubleWallAdapter.Im
     private ArrayList<Phone> searches;
     private LayoutInflater inflater;
     private ItemClickListener listener;
+    private Activity contex;
 
     public void setOnListener(ItemClickListener listener) {
         this.listener = listener;
     }
 
-    public DoubleWallAdapter(Context context) {
+    public DoubleWallAdapter(Activity context) {
         inflater = LayoutInflater.from(context);
+        this.contex=context;
+
 
     }
 
@@ -43,6 +51,8 @@ public class DoubleWallAdapter extends RecyclerView.Adapter<DoubleWallAdapter.Im
     public void onBindViewHolder(@NonNull ImagetHolder holder, final int position) {
         Phone name = searches.get(position);
         holder.bindData(name);
+
+
         if (listener != null) {
             holder.itemView.setOnClickListener(view -> listener.onClicked(position));
             holder.itemView.setOnLongClickListener(view -> {
@@ -72,11 +82,15 @@ public class DoubleWallAdapter extends RecyclerView.Adapter<DoubleWallAdapter.Im
 
         public void bindData(Phone item) {
             Glide.with(getImageView).load(item.getImgePhone()).into(getImageView);
-            Glide.with(view).load(item.getImLock()).into(view);
+            view.setOnClickListener(view -> {
+                Intent intent=new Intent(contex, ActivitySubscription.class);
+
+                contex.startActivity(intent);
+
+            });
 
         }
     }
-
     public interface ItemClickListener {
         void onClicked(int position);
 

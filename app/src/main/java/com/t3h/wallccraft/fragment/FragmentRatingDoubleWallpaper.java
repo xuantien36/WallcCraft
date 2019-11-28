@@ -20,13 +20,11 @@ import java.util.ArrayList;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
-public class FragmentRatingDoubleWallpaper extends Fragment implements DoubleWallAdapter.ItemClickListener,SwipeRefreshLayout.OnRefreshListener {
+public class FragmentRatingDoubleWallpaper extends Fragment implements SwipeRefreshLayout.OnRefreshListener {
     private ArrayList<Phone>arr;
     private DoubleWallAdapter adapter;
     @BindView(R.id.lv_rating_dowble_wall)
     RecyclerView recyclerView;
-//    @BindView(R.id.swipe)
-//    SwipeRefreshLayout swipeRefreshLayout;
 
     @Nullable
     @Override
@@ -59,34 +57,15 @@ public class FragmentRatingDoubleWallpaper extends Fragment implements DoubleWal
         arr.add(new Phone(R.drawable.phoneop,R.drawable.ic_lock_black_24dp));
         arr.add(new Phone(R.drawable.phoneop,R.drawable.ic_lock_black_24dp));
         adapter.setData(arr);
-//        swipeRefreshLayout.setRefreshing(false);
     }
 
     private void initView() {
-        adapter=new DoubleWallAdapter(getContext());
+        adapter=new DoubleWallAdapter(getActivity());
         recyclerView.setAdapter(adapter);
-        adapter.setOnListener(this);
-//        swipeRefreshLayout.setOnRefreshListener(this);
-//        swipeRefreshLayout.setColorSchemeResources(R.color.colorTab);
-//        swipeRefreshLayout.setProgressBackgroundColorSchemeColor(getContext().getResources().getColor(R.color.colorTabSelect));
 
     }
-
-    @Override
-    public void onClicked(int position) {
-        getActivity().getSupportFragmentManager().beginTransaction().replace(R.id.frame_main,new FragmentSubscription()).commit();
-
-    }
-
-    @Override
-    public void onLongClicked(int position) {
-
-    }
-
     @Override
     public void onRefresh() {
-//        swipeRefreshLayout.setRefreshing(false);
-
 
     }
 }
